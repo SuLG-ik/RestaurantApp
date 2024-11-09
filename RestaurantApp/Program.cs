@@ -1,9 +1,15 @@
-﻿namespace RestaurantApp;
+﻿using RestaurantApp.Screen.Main;
 
-class Program
+namespace RestaurantApp;
+
+public abstract class Program
 {
-    static void Main(string[] args)
+    private static void Main()
     {
-        Console.WriteLine("Hello, World!");
+        var navigator = new StackNavigator<Screen.Screen>(new MainScreen());
+        var application = new BaseApplication(navigator);
+        application.Create();
+        application.Run();
+        application.Destroy();
     }
 }
