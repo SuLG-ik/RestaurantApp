@@ -2,47 +2,57 @@ namespace RestaurantApp.Model;
 
 public class ProductRequestItem
 {
-    public string ProductName { get; }
-    public string Unit { get; }
+    public int ProductId { get; }
+    public Unit Unit { get; }
     public int Quantity { get; }
-
-    private ProductRequestItem(string productName, string unit, int quantity)
+    public decimal PurchasePrice { get; }
+    
+    private ProductRequestItem(int productId, Unit unit, int quantity, decimal purchasePrice)
     {
-        ProductName = productName;
+        ProductId = productId;
         Unit = unit;
         Quantity = quantity;
+        PurchasePrice = purchasePrice;
     }
-    
+
     public class Builder
     {
-        private string? _productName;
-        private string? _unit;
+        private int? _productId;
+        private Unit? _unit;
         private int? _quantity;
+        private decimal? _purchasePrice;
 
-        public Builder SetProductName(string productName)
+        public Builder SetProductId(int productId)
         {
-            _productName = Validator.RequireNotBlank(productName, nameof(productName));
+            _productId = Validator.RequireGreaterThan(productId, 0, nameof(productId));
             return this;
         }
 
-        public Builder SetUnit(string unit)
+        public Builder SetUnit(Unit unit)
         {
-            _unit = Validator.RequireNotBlank(unit, nameof(unit));
+            _unit = unit;
             return this;
         }
 
         public Builder SetQuantity(int quantity)
         {
-            _quantity = Validator.RequireGreaterThan(quantity, 0, nameof(quantity)); 
+            _quantity = Validator.RequireGreaterThan(quantity, 0, nameof(quantity));
+            return this;
+        }
+
+        public Builder SetPurchasePrice(decimal purchasePrice)
+        {
+            _purchasePrice = Validator.RequireGreaterThan(purchasePrice, 0, nameof(purchasePrice));
             return this;
         }
 
         public ProductRequestItem Build()
         {
-            var productName = Validator.RequireNotNull(_productName, nameof(_productName));
+            var productId = Validator.RequireNotNull(_productId, nameof(_productId));
             var unit = Validator.RequireNotNull(_unit, nameof(_unit));
             var quantity = Validator.RequireNotNull(_quantity, nameof(_quantity));
-            return new ProductRequestItem(productName, unit, quantity);
+            var purchasePrice = Validator.RequireNotNull(_purchasePrice, nameof(_purchasePrice));
+            return new ProductRequestItem(productId, unit, quantity, purchasePrice);
         }
     }
 }

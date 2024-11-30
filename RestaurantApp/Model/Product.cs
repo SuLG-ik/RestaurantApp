@@ -3,27 +3,27 @@ namespace RestaurantApp.Model;
 public class Product
 {
     public string Name { get; }
-    public string Unit { get; }
+    public Unit Unit { get; }
     public decimal Price { get; }
     public int Quantity { get; }
-    public Supplier Supplier { get; }
+    public int SupplierId { get; }
 
-    private Product(string name, string unit, decimal price, int quantity, Supplier supplier)
+    private Product(string name, Unit unit, decimal price, int quantity, int supplierId)
     {
         Name = name;
         Unit = unit;
         Price = price;
         Quantity = quantity;
-        Supplier = supplier;
+        SupplierId = supplierId;
     }
 
     public class Builder
     {
         private string? _name;
-        private string? _unit;
+        private Unit? _unit;
         private decimal? _price;
         private int? _quantity;
-        private Supplier? _supplier;
+        private int? _supplierId;
 
         public Builder SetName(string name)
         {
@@ -31,9 +31,9 @@ public class Product
             return this;
         }
 
-        public Builder SetUnit(string unit)
+        public Builder SetUnit(Unit unit)
         {
-            _unit = Validator.RequireNotBlank(unit, nameof(unit));
+            _unit = unit;
             return this;
         }
 
@@ -49,9 +49,9 @@ public class Product
             return this;
         }
 
-        public Builder SetSupplier(Supplier supplier)
+        public Builder SetSupplierId(int supplierId)
         {
-            _supplier = Validator.RequireNotNull(supplier, nameof(supplier));
+            _supplierId = Validator.RequireGreaterThan(supplierId, 0, nameof(supplierId));
             return this;
         }
 
@@ -61,7 +61,7 @@ public class Product
             var unit = Validator.RequireNotNull(_unit, nameof(_unit));
             var quantity = Validator.RequireNotNull(_quantity, nameof(_quantity));
             var price = Validator.RequireNotNull(_price, nameof(_price));
-            var supplier = Validator.RequireNotNull(_supplier, nameof(_supplier));
+            var supplier = Validator.RequireNotNull(_supplierId, nameof(_supplierId));
             return new Product(name, unit, price, quantity, supplier);
         }
     }

@@ -79,11 +79,11 @@ public class Supplier
         public Supplier Build()
         {
             var name = Validator.RequireNotNull(_name, nameof(_name));
-            var address = Validator.RequireNotNull(_address, nameof(_name));
-            var director = Validator.RequireNotNull(_director, nameof(_name));
-            var phone = Validator.RequireNotNull(_phone, nameof(_name));
-            var bank = Validator.RequireNotNull(_bank, nameof(_name));
-            var accountNumber = Validator.RequireNotNull(_accountNumber, nameof(_name));
+            var address = Validator.RequireNotNull(_address, nameof(_address));
+            var director = Validator.RequireNotNull(_director, nameof(_director));
+            var phone = Validator.RequireNotNull(_phone, nameof(_phone));
+            var bank = Validator.RequireNotNull(_bank, nameof(_bank));
+            var accountNumber = Validator.RequireNotNull(_accountNumber, nameof(_accountNumber));
             var inn = Validator.RequireNotNull(_inn, nameof(_inn));
 
             return new Supplier(name, address, director, phone, bank, accountNumber, inn);
