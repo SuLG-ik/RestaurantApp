@@ -1,9 +1,8 @@
 using System.Text.RegularExpressions;
-using ConsoleApp1;
 
 namespace RestaurantApp;
 
-public partial class Validator
+public static partial class Validator
 {
     public static int RequireGreaterThan(int value, int min, string tag)
     {
@@ -90,6 +89,14 @@ public partial class Validator
     public static int RequireInt(string value, string tag)
     {
         if (!int.TryParse(value, out var result))
+            throw new ValidationConvertException<string>(value, typeof(int), tag,
+                $"{tag}: Value ({value}) must be int");
+        return result;
+    }
+    
+    public static decimal RequireDecimal(string value, string tag)
+    {
+        if (!decimal.TryParse(value, out var result))
             throw new ValidationConvertException<string>(value, typeof(int), tag,
                 $"{tag}: Value ({value}) must be int");
         return result;

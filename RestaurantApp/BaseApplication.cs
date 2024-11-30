@@ -1,7 +1,7 @@
-using ConsoleApp1;
+using RestaurantApp.Formatter;
+using RestaurantApp.Repository;
 
 namespace RestaurantApp;
-
 
 public class BaseApplication(INavigator<Screen.Screen> navigator) : Application
 {
@@ -9,7 +9,11 @@ public class BaseApplication(INavigator<Screen.Screen> navigator) : Application
 
     public override void Create()
     {
-        ServiceLocator.Register<IConsole>(new SystemConsole());
+        var formatter = DelegatingFormatter.Default();
+        ServiceLocator.Register<IFormatter>(formatter);
+        ServiceLocator.Register<IConsole>(new SystemConsole(formatter));
+        ServiceLocator.Register<ISupplierRepository>(new InMemorySupplierRepository());
+        ServiceLocator.Register<IProductRepository>(new InMemoryProductRepository());
         Navigator = navigator;
     }
 

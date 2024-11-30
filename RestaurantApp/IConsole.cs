@@ -9,6 +9,10 @@ public interface IConsole
     int ReadInt(string tag);
 
     int ReadIntUntilValid(string tag, Action? onRetry = null);
+    
+    decimal ReadDecimal(string tag);
+
+    decimal ReadDecimalUntilValid(string tag, Action? onRetry = null);
 
     T ReadEnum<T>(string? tag = null) where T : struct, Enum;
     

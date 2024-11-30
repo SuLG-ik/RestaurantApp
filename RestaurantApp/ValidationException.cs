@@ -1,4 +1,4 @@
-namespace ConsoleApp1;
+namespace RestaurantApp;
 
 public class ValidationException(string tag, string message) : ArgumentException
 {
