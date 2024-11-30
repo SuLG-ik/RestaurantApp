@@ -1,4 +1,4 @@
-namespace ConsoleApp1;
+namespace RestaurantApp;
 
 public static class ServiceLocator
 {
