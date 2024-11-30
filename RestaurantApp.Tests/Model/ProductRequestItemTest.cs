@@ -1,4 +1,3 @@
-using ConsoleApp1;
 using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestaurantApp.Model;
@@ -14,31 +13,33 @@ public class ProductRequestItemTests
     public void Build_WithValidParameters_ShouldCreateProductRequestItem()
     {
         var builder = new ProductRequestItem.Builder()
-            .SetProductName("Apple")
-            .SetUnit("kg")
-            .SetQuantity(5);
+            .SetProductId(1)
+            .SetUnit(Unit.Gram)
+            .SetPurchasePrice(10)
+            .SetQuantity(5000);
 
         var productRequestItem = builder.Build();
 
-        Assert.AreEqual("Apple", productRequestItem.ProductName);
-        Assert.AreEqual("kg", productRequestItem.Unit);
-        Assert.AreEqual(5, productRequestItem.Quantity);
+        Assert.AreEqual(1, productRequestItem.ProductId);
+        Assert.AreEqual(10, productRequestItem.PurchasePrice);
+        Assert.AreEqual(Unit.Gram, productRequestItem.Unit);
+        Assert.AreEqual(5000, productRequestItem.Quantity);
     }
 
     [TestMethod]
-    public void SetProductName_WithEmptyString_ShouldThrowValidationNotBlankException()
+    public void SetProductId_WithValueLessThanZero_ShouldThrowValidationNotBlankException()
     {
         var builder = new ProductRequestItem.Builder();
 
-        Assert.ThrowsException<ValidationNotBlankException>(() => builder.SetProductName(""));
+        Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetProductId(0));
     }
-
+    
     [TestMethod]
-    public void SetUnit_WithEmptyString_ShouldThrowValidationNotBlankException()
+    public void SetPurchasePrice_WithValueLessThanZero_ShouldThrowValidationNotBlankException()
     {
         var builder = new ProductRequestItem.Builder();
 
-        Assert.ThrowsException<ValidationNotBlankException>(() => builder.SetUnit(""));
+        Assert.ThrowsException<ValidationNotCourseInException<decimal>>(() => builder.SetPurchasePrice(0));
     }
 
     [TestMethod]
@@ -54,8 +55,9 @@ public class ProductRequestItemTests
     public void Build_WithoutProductName_ShouldThrowValidationNotNullException()
     {
         var builder = new ProductRequestItem.Builder()
-            .SetUnit("kg")
-            .SetQuantity(5);
+            .SetUnit(Unit.Gram)
+            .SetPurchasePrice(1000)
+            .SetQuantity(5000);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }
@@ -64,7 +66,8 @@ public class ProductRequestItemTests
     public void Build_WithoutUnit_ShouldThrowValidationNotNullException()
     {
         var builder = new ProductRequestItem.Builder()
-            .SetProductName("Apple")
+            .SetProductId(1)
+            .SetPurchasePrice(1000)
             .SetQuantity(5);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
@@ -74,8 +77,20 @@ public class ProductRequestItemTests
     public void Build_WithoutQuantity_ShouldThrowValidationNotNullException()
     {
         var builder = new ProductRequestItem.Builder()
-            .SetProductName("Apple")
-            .SetUnit("kg");
+            .SetProductId(1)
+            .SetPurchasePrice(1000)
+            .SetUnit(Unit.Gram);
+
+        Assert.ThrowsException<ValidationNullException>(() => builder.Build());
+    }
+    
+    [TestMethod]
+    public void Build_WithoutPurchasePrice_ShouldThrowValidationNotNullException()
+    {
+        var builder = new ProductRequestItem.Builder()
+            .SetProductId(1)
+            .SetUnit(Unit.Gram)
+            .SetQuantity(5);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }

@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using RestaurantApp.Formatter;
 
 namespace RestaurantApp.Tests;
 
@@ -8,11 +10,12 @@ namespace RestaurantApp.Tests;
 public class SystemConsoleTests
 {
     private SystemConsole _console;
-
+    private Mock<IFormatter> _formatterMock = new();
     [TestInitialize]
     public void Setup()
     {
-        _console = new SystemConsole();
+        _formatterMock.Setup(f => f.Supports(It.IsAny<object>())).Returns(false);
+        _console = new SystemConsole(_formatterMock.Object);
     }
 
     [TestMethod]

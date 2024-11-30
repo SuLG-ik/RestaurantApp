@@ -1,4 +1,3 @@
-using ConsoleApp1;
 using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestaurantApp.Model;

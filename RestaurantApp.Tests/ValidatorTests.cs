@@ -1,5 +1,4 @@
 using System;
-using ConsoleApp1;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RestaurantApp.Tests;
@@ -98,6 +97,19 @@ public class ValidatorTests
     public void RequireInt_ShouldThrowException_WhenInvalidString()
     {
         Assert.ThrowsException<ValidationConvertException<string>>(() => Validator.RequireInt("abc", "TestValue"));
+    }
+
+    [TestMethod]
+    public void RequireDecimal_ShouldThrowException_WhenInvalidString()
+    {
+        Assert.ThrowsException<ValidationConvertException<string>>(() => Validator.RequireDecimal("abc", "TestValue"));
+    }
+    
+    [TestMethod]
+    public void RequireDecimal_ShouldReturnInt_WhenValidString()
+    {
+        var result = Validator.RequireDecimal("123", "TestValue");
+        Assert.AreEqual(123, result);
     }
 
     [TestMethod]
