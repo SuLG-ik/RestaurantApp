@@ -16,7 +16,7 @@ public class RestaurantTests
     {
         _menuItem = new MenuItem.Builder()
             .SetName("Pizza")
-            .SetGroup(ProductGroup.SecondCourses)
+            .SetGroup(MenuItemGroup.SecondCourses)
             .SetPrice(15.99m)
             .Build();
     }

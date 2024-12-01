@@ -1,4 +1,5 @@
 using RestaurantApp.Screen.RegistrationProductAction;
+using RestaurantApp.Screen.RegistrationRestaurant;
 using RestaurantApp.Screen.RegistrationSupplierAction;
 
 namespace RestaurantApp.Screen.RegistrationActions;
@@ -14,6 +15,7 @@ public class RegistrationActionsScreen : MenuOptionsScreen<RegistrationActionsOp
         {
             { RegistrationActionsOptions.NewProduct, new MenuOption("Добавить продукт", OnProduct) },
             { RegistrationActionsOptions.NewSupplier, new MenuOption("Добавить поставщика", OnSupplier) },
+            { RegistrationActionsOptions.NewRestaurant, new MenuOption("Добавить ресторан", OnRestaurant) },
             { RegistrationActionsOptions.Back, new MenuOption("Назад", OnBack) }
         };
     }
@@ -21,6 +23,11 @@ public class RegistrationActionsScreen : MenuOptionsScreen<RegistrationActionsOp
     private void OnSupplier()
     {
         Navigator?.ReplaceCurrent(new RegistrationSupplierActionScreen());
+    }
+
+    private void OnRestaurant()
+    {
+        Navigator?.ReplaceCurrent(new RegistrationRestaurantActionScreen());
     }
 
     private void OnProduct()

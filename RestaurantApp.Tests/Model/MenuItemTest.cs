@@ -15,7 +15,7 @@ public class MenuItemTests
         // Arrange
         var builder = new MenuItem.Builder()
             .SetName("Burger")
-            .SetGroup(ProductGroup.Appetisers)
+            .SetGroup(MenuItemGroup.Appetisers)
             .SetPrice(10.99m);
 
         // Act
@@ -23,7 +23,7 @@ public class MenuItemTests
 
         // Assert
         Assert.AreEqual("Burger", menuItem.Name);
-        Assert.AreEqual(ProductGroup.Appetisers, menuItem.Group);
+        Assert.AreEqual(MenuItemGroup.Appetisers, menuItem.Group);
         Assert.AreEqual(10.99m, menuItem.Price);
     }
 
@@ -52,7 +52,7 @@ public class MenuItemTests
     {
         // Arrange
         var builder = new MenuItem.Builder()
-            .SetGroup(ProductGroup.Appetisers)
+            .SetGroup(MenuItemGroup.Appetisers)
             .SetPrice(10.99m);
 
         // Act & Assert
@@ -77,7 +77,7 @@ public class MenuItemTests
         // Arrange
         var builder = new MenuItem.Builder()
             .SetName("Burger")
-            .SetGroup(ProductGroup.Appetisers);
+            .SetGroup(MenuItemGroup.Appetisers);
 
         // Act & Assert
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());

@@ -1,0 +1,97 @@
+namespace RestaurantApp.Screen.ObjectBuilding;
+
+public class MultipleItemsBuildingScreen<T>(
+    string title,
+    IParametrizedScreenFactory<Action<T>> factory,
+    Action<List<T>> onComplete
+) : Screen where T : class
+{
+    private readonly List<T> _items = [];
+    private IConsole _console;
+
+    protected override void Create()
+    {
+        base.Create();
+        _console = ServiceLocator.GetService<IConsole>();
+    }
+
+    public override void Display()
+    {
+        WriteHeader();
+        WriteObjects();
+        UserInput();
+    }
+
+    private void UserInput()
+    {
+        _console.Write("Добавить объект в список? 0 – нет, 1 – да: ");
+        var variant = _console.ReadIntUntilValid("variant", onRetry: RetryMessage);
+        if (variant == 0)
+        {
+            OnExit();
+        }
+        else
+        {
+            OnContinue();
+        }
+    }
+
+    private void WriteHeader()
+    {
+        _console.WriteLine($"---{title}---");
+    }
+
+    private void OnContinue()
+    {
+        var screen = factory.CreateScreen(OnItemAdded);
+        Navigator?.NavigateTo(screen);
+    }
+
+    private void WriteObjects()
+    {
+        _console.WriteLine($"Текущие добавленные объекты");
+        foreach (var item in _items)
+        {
+            _console.WriteLine(item);
+        }
+    }
+
+    private void OnExit()
+    {
+        WriteExitMessage();
+
+        onComplete(_items);
+        Navigator?.Back();
+    }
+
+    private void OnItemAdded(T item)
+    {
+        _items.Add(item);
+    }
+
+    private void WriteExitMessage()
+    {
+        if (_items.Count == 0)
+        {
+            _console.WriteLine("Ни одного объекта не добавлено");
+        }
+        else
+        {
+            _console.WriteLine("Добавленные объекты:");
+            foreach (var selectedObject in _items)
+            {
+                _console.WriteLine(selectedObject);
+            }
+        }
+    }
+
+    private void RetryMessage()
+    {
+        _console.Write("Введите 0 – не добавлять, 1 – добавить: ");
+    }
+
+    private static string FormatNumber(int number, bool isSelected)
+    {
+        return isSelected ? $"({number})" : $"{number}";
+    }
+}

@@ -2,19 +2,19 @@ using RestaurantApp.Model;
 
 namespace RestaurantApp.Formatter;
 
-public class ProductGroupFormatter : BaseFormatter<ProductGroup>
+public class ProductGroupFormatter : BaseFormatter<MenuItemGroup>
 {
-    protected override string Format(ProductGroup value)
+    protected override string Format(MenuItemGroup value)
     {
         return value switch
         {
-            ProductGroup.Appetisers => "Закуски",
-            ProductGroup.FirstCourses => "Первые блюда",
-            ProductGroup.SecondCourses => "Вторые блюда",
-            ProductGroup.Dessert => "Десерты",
-            ProductGroup.Drinks => "Напитки",
-            ProductGroup.Pastries => "Выпечка",
-            ProductGroup.Other => "Другое",
+            MenuItemGroup.Appetisers => "Закуски",
+            MenuItemGroup.FirstCourses => "Первые блюда",
+            MenuItemGroup.SecondCourses => "Вторые блюда",
+            MenuItemGroup.Dessert => "Десерты",
+            MenuItemGroup.Drinks => "Напитки",
+            MenuItemGroup.Pastries => "Выпечка",
+            MenuItemGroup.Other => "Другое",
             _ => "Неизвестная категория"
         };
     }

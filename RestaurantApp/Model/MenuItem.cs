@@ -3,10 +3,10 @@ namespace RestaurantApp.Model;
 public class MenuItem
 {
     public string Name { get; }
-    public ProductGroup Group { get; }
+    public MenuItemGroup Group { get; }
     public decimal Price { get; }
 
-    private MenuItem(string name, ProductGroup group, decimal price)
+    private MenuItem(string name, MenuItemGroup group, decimal price)
     {
         Name = name;
         Group = group;
@@ -16,7 +16,7 @@ public class MenuItem
     public class Builder
     {
         private string? _name;
-        private ProductGroup? _group;
+        private MenuItemGroup? _group;
         private decimal? _price;
 
         public Builder SetName(string name)
@@ -25,7 +25,7 @@ public class MenuItem
             return this;
         }
 
-        public Builder SetGroup(ProductGroup group)
+        public Builder SetGroup(MenuItemGroup group)
         {
             _group = Validator.RequireNotNull(group, nameof(group));
             return this;

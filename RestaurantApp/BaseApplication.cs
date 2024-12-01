@@ -14,6 +14,7 @@ public class BaseApplication(INavigator<Screen.Screen> navigator) : Application
         ServiceLocator.Register<IConsole>(new SystemConsole(formatter));
         ServiceLocator.Register<ISupplierRepository>(new InMemorySupplierRepository());
         ServiceLocator.Register<IProductRepository>(new InMemoryProductRepository());
+        ServiceLocator.Register<IRestaurantRepository>(new InMemoryRestaurantRepository());
         Navigator = navigator;
     }
 

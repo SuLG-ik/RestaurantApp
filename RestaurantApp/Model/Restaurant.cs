@@ -57,6 +57,12 @@ public class Restaurant
             return this;
         }
 
+        public Builder AddMenuItems(IEnumerable<MenuItem> menuItem)
+        {
+            _menu.AddRange(Validator.RequireNotNull(menuItem, nameof(menuItem)));
+            return this;
+        }
+
         public Restaurant Build()
         {
             var name = Validator.RequireNotNull(_name, nameof(_name));
