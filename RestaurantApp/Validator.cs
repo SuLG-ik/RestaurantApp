@@ -4,51 +4,59 @@ namespace RestaurantApp;
 
 public static partial class Validator
 {
-    public static int RequireGreaterThan(int value, int min, string tag)
+    public static T RequireGreaterThan<T>(T value, T min, string tag) where T : struct, IComparable<T>
     {
-        if (value <= min)
-            throw new ValidationNotCourseInException<int>(value, min, int.MaxValue,
-                tag, $"{tag}: Value ({value}) must be greater than {min}");
-        return value;
-    }
-    public static decimal RequireGreaterThan(decimal value, decimal min, string tag)
-    {
-        if (value <= min)
-            throw new ValidationNotCourseInException<decimal>(value, min, decimal.MaxValue,
+        if (value.CompareTo(min) <= 0)
+            throw new ValidationNotCourseInException<T>(value, min, null,
                 tag, $"{tag}: Value ({value}) must be greater than {min}");
         return value;
     }
 
-    public static int RequireCourseIn(int value, int min, int max, string tag)
+    public static T RequireCourseIn<T>(T value, T min, T max, string tag) where T : struct, IComparable<T>
     {
-        if (value < min || value > max)
-            throw new ValidationNotCourseInException<int>(value, min, max, tag,
+        if (value.CompareTo(min) < 0 || value.CompareTo(max) > 0)
+        {
+            throw new ValidationNotCourseInException<T>(value, min, max, tag,
                 $"{tag}: Value ({value}) must be greater than {min} and less than {max}");
+        }
+
         return value;
     }
 
-    public static int RequireGreaterOrEqualsThan(int value, int min, string tag)
+    public static T RequireGreaterOrEqualsThan<T>(T value, T min, string tag) where T : struct, IComparable<T>
     {
-        return RequireCourseIn(value, min, int.MaxValue, tag);
+        if (value.CompareTo(min) < 0)
+            throw new ValidationNotCourseInException<T>(value, min, null,
+                tag, $"{tag}: Value ({value}) must be greater or equals than {min}");
+        return value;
     }
 
-    public static int RequireLessOrEqualsThan(int value, int max, string tag)
+    public static T RequireLessOrEqualsThan<T>(T value, T max, string tag) where T : struct, IComparable<T>
     {
-        return RequireCourseIn(value, int.MinValue, max, tag);
+        if (value.CompareTo(max) > 0)
+        {
+            throw new ValidationNotCourseInException<T>(value, null, max,
+                tag, $"{tag}: Value ({value}) must be less or equals than {max}");
+        }
+
+        return value;
     }
 
-    public static int RequireLessThan(int value, int max, string tag)
+    public static T RequireLessThan<T>(T value, T max, string tag) where T : struct, IComparable<T>
     {
-        if (value >= max)
-            throw new ValidationNotCourseInException<int>(value, int.MinValue, max,
+        if (value.CompareTo(max) >= 0)
+        {
+            throw new ValidationNotCourseInException<T>(value, null, max,
                 tag, $"{tag}: Value ({value}) must be less than {max}");
+        }
+
         return value;
     }
 
-    public static int RequireEquals(int value, int requireValue, string tag)
+    public static T RequireEquals<T>(T value, T requireValue, string tag) where T : struct, IComparable<T>
     {
-        if (value != requireValue)
-            throw new ValidationEqualsException<int>(value, requireValue, tag,
+        if (value.CompareTo(requireValue) != 0)
+            throw new ValidationEqualsException<T>(value, requireValue, tag,
                 $"{tag}: Value ({value}) must be equals to {requireValue}");
         return value;
     }
@@ -59,11 +67,12 @@ public static partial class Validator
             throw new ValidationLengthException<string>(value, 1, int.MaxValue, tag, $"{tag}: Value must be not empty");
         return value;
     }
-    
+
     public static List<T> RequireNotEmpty<T>(List<T> value, string tag)
     {
         if (value.Count == 0)
-            throw new ValidationLengthException<List<T>>(value, 1, int.MaxValue, tag, $"{tag}: Value must be not empty");
+            throw new ValidationLengthException<List<T>>(value, 1, int.MaxValue, tag,
+                $"{tag}: Value must be not empty");
         return value;
     }
 
@@ -93,7 +102,7 @@ public static partial class Validator
                 $"{tag}: Value ({value}) must be int");
         return result;
     }
-    
+
     public static decimal RequireDecimal(string value, string tag)
     {
         if (!decimal.TryParse(value, out var result))
@@ -126,7 +135,7 @@ public static partial class Validator
                 $"{tag}: Value ({value}) must be boolean");
         return result;
     }
-    
+
     public static string RequireNumeric(string value, string tag)
     {
         var isNumber = NumericRegex().IsMatch(value);

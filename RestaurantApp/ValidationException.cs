@@ -32,12 +32,12 @@ public class ValidationNotBlankException(string actual, string tag, string messa
     public string Actual { get; } = actual;
 }
 
-public class ValidationNotCourseInException<T>(T actual, T minValue, T maxValue, string tag, string message)
+public class ValidationNotCourseInException<T>(T actual, T? minValue, T? maxValue, string tag, string message)
     : ValidationException(tag, message) where T : struct
 {
     public T Actual { get; } = actual;
-    public T MinValue { get; } = minValue;
-    public T MaxValue { get; } = maxValue;
+    public T? MinValue { get; } = minValue;
+    public T? MaxValue { get; } = maxValue;
 }
 
 public class ValidationEqualsException<T>(T actual, T expected, string tag, string message)
