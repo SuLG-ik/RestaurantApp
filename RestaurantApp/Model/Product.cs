@@ -1,28 +1,45 @@
+using System.Collections.Immutable;
+
 namespace RestaurantApp.Model;
 
 public class Product
 {
     public string Name { get; }
     public Unit Unit { get; }
-    public decimal Price { get; }
-    public int Quantity { get; }
+    public ImmutableList<PriceChange> PriceChanges { get; }
+    public decimal Quantity { get; }
     public int SupplierId { get; }
 
-    private Product(string name, Unit unit, decimal price, int quantity, int supplierId)
+    public decimal Price => PriceChanges.Last().Value;
+
+    private Product(string name, Unit unit, IEnumerable<PriceChange> priceChanges, decimal quantity, int supplierId)
     {
         Name = name;
         Unit = unit;
-        Price = price;
+        PriceChanges = priceChanges.ToImmutableList();
         Quantity = quantity;
         SupplierId = supplierId;
     }
 
     public class Builder
     {
+        public Builder()
+        {
+        }
+
+        public Builder(Product product)
+        {
+            _name = product.Name;
+            _unit = product.Unit;
+            _priceChanges = product.PriceChanges.ToList();
+            _quantity = product.Quantity;
+            _supplierId = product.SupplierId;
+        }
+
         private string? _name;
         private Unit? _unit;
-        private decimal? _price;
-        private int? _quantity;
+        private List<PriceChange> _priceChanges = [];
+        private decimal? _quantity;
         private int? _supplierId;
 
         public Builder SetName(string name)
@@ -39,11 +56,23 @@ public class Product
 
         public Builder SetPrice(decimal price)
         {
-            _price = Validator.RequireGreaterThan(price, 0, nameof(price));
+            _priceChanges.Add(new PriceChange(price, DateTime.Now));
             return this;
         }
 
-        public Builder SetQuantity(int quantity)
+        public Builder AddPriceChange(PriceChange priceChange)
+        {
+            _priceChanges.Add(priceChange);
+            return this;
+        }
+
+        public Builder AddPriceChanges(IEnumerable<PriceChange> priceChange)
+        {
+            _priceChanges.AddRange(priceChange);
+            return this;
+        }
+
+        public Builder SetQuantity(decimal quantity)
         {
             _quantity = Validator.RequireGreaterOrEqualsThan(quantity, 0, nameof(quantity));
             return this;
@@ -60,9 +89,10 @@ public class Product
             var name = Validator.RequireNotNull(_name, nameof(_name));
             var unit = Validator.RequireNotNull(_unit, nameof(_unit));
             var quantity = Validator.RequireNotNull(_quantity, nameof(_quantity));
-            var price = Validator.RequireNotNull(_price, nameof(_price));
             var supplier = Validator.RequireNotNull(_supplierId, nameof(_supplierId));
-            return new Product(name, unit, price, quantity, supplier);
+            var priceChanges = Validator.RequireNotEmpty(_priceChanges, nameof(_priceChanges))
+                .OrderBy(p => p.Date);
+            return new Product(name, unit, priceChanges, quantity, supplier);
         }
     }
 }

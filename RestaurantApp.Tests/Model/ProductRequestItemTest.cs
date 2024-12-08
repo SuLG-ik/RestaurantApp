@@ -14,16 +14,12 @@ public class ProductRequestItemTests
     {
         var builder = new ProductRequestItem.Builder()
             .SetProductId(1)
-            .SetUnit(Unit.Gram)
-            .SetPurchasePrice(10)
             .SetQuantity(5000);
 
         var productRequestItem = builder.Build();
 
         Assert.AreEqual(1, productRequestItem.ProductId);
-        Assert.AreEqual(10, productRequestItem.PurchasePrice);
-        Assert.AreEqual(Unit.Gram, productRequestItem.Unit);
-        Assert.AreEqual(5000, productRequestItem.Quantity);
+       Assert.AreEqual(5000, productRequestItem.Quantity);
     }
 
     [TestMethod]
@@ -32,14 +28,6 @@ public class ProductRequestItemTests
         var builder = new ProductRequestItem.Builder();
 
         Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetProductId(0));
-    }
-    
-    [TestMethod]
-    public void SetPurchasePrice_WithValueLessThanZero_ShouldThrowValidationNotBlankException()
-    {
-        var builder = new ProductRequestItem.Builder();
-
-        Assert.ThrowsException<ValidationNotCourseInException<decimal>>(() => builder.SetPurchasePrice(0));
     }
 
     [TestMethod]
@@ -55,8 +43,6 @@ public class ProductRequestItemTests
     public void Build_WithoutProductName_ShouldThrowValidationNotNullException()
     {
         var builder = new ProductRequestItem.Builder()
-            .SetUnit(Unit.Gram)
-            .SetPurchasePrice(1000)
             .SetQuantity(5000);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
@@ -67,7 +53,6 @@ public class ProductRequestItemTests
     {
         var builder = new ProductRequestItem.Builder()
             .SetProductId(1)
-            .SetPurchasePrice(1000)
             .SetQuantity(5);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
@@ -77,9 +62,7 @@ public class ProductRequestItemTests
     public void Build_WithoutQuantity_ShouldThrowValidationNotNullException()
     {
         var builder = new ProductRequestItem.Builder()
-            .SetProductId(1)
-            .SetPurchasePrice(1000)
-            .SetUnit(Unit.Gram);
+            .SetProductId(1);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }
@@ -89,7 +72,6 @@ public class ProductRequestItemTests
     {
         var builder = new ProductRequestItem.Builder()
             .SetProductId(1)
-            .SetUnit(Unit.Gram)
             .SetQuantity(5);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());

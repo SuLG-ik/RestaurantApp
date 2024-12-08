@@ -16,7 +16,7 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit(Unit.Gram)
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetQuantity(100)
             .SetSupplierId(1);
@@ -24,7 +24,7 @@ public class ProductTests
         var product = builder.Build();
 
         Assert.AreEqual("Flour", product.Name);
-        Assert.AreEqual(Unit.Gram, product.Unit);
+        Assert.AreEqual(Unit.Kg, product.Unit);
         Assert.AreEqual(1.99m, product.Price);
         Assert.AreEqual(100, product.Quantity);
         Assert.AreEqual(1, product.SupplierId);
@@ -66,7 +66,7 @@ public class ProductTests
     public void Build_WithoutName_ShouldThrowValidationNotNullException()
     {
         var builder = new Product.Builder()
-            .SetUnit(Unit.Gram)
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetQuantity(100)
             .SetSupplierId(1);
@@ -91,7 +91,7 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit(Unit.Gram)
+            .SetUnit(Unit.Kg)
             .SetQuantity(100)
             .SetSupplierId(1);
 
@@ -103,7 +103,7 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit(Unit.Gram)
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetSupplierId(1);
 
@@ -115,7 +115,7 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit(Unit.Gram)
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetQuantity(100);
 

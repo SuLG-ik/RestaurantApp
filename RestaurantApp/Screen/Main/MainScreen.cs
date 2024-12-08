@@ -1,3 +1,4 @@
+using RestaurantApp.Screen.CreateRequest;
 using RestaurantApp.Screen.RegistrationActions;
 
 namespace RestaurantApp.Screen.Main;
@@ -12,6 +13,7 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
     {
         Options = new Dictionary<MainMenuOptions, MenuOption>
         {
+            { MainMenuOptions.CreateRequest, new MenuOption("Создать запрос на продукты", OnCreateRequest) },
             { MainMenuOptions.Registration, new MenuOption("Регистрационные действия", OnRegistrationActions) },
             { MainMenuOptions.Quit, new MenuOption("Выход", OnQuit) },
         };
@@ -20,6 +22,11 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
     private void OnRegistrationActions()
     {
         Navigator?.NavigateTo(new RegistrationActionsScreen());
+    }
+
+    private void OnCreateRequest()
+    {
+        Navigator?.NavigateTo(new CreateRequestScreen());
     }
 
     private void OnQuit()

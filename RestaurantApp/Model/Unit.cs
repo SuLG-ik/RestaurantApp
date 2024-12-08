@@ -2,7 +2,7 @@ namespace RestaurantApp.Model;
 
 public enum Unit
 {
-    Gram = 1,
-    Milliliter = 2,
+    Kg = 1,
+    Liter = 2,
     Item = 3,
 }

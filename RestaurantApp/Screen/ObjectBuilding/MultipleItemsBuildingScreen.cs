@@ -3,7 +3,8 @@ namespace RestaurantApp.Screen.ObjectBuilding;
 public class MultipleItemsBuildingScreen<T>(
     string title,
     IParametrizedScreenFactory<Action<T>> factory,
-    Action<List<T>> onComplete
+    Action<List<T>> onComplete,
+    bool required
 ) : Screen where T : class
 {
     private readonly List<T> _items = [];
@@ -24,16 +25,24 @@ public class MultipleItemsBuildingScreen<T>(
 
     private void UserInput()
     {
-        _console.Write("Добавить объект в список? 0 – нет, 1 – да: ");
-        var variant = _console.ReadIntUntilValid("variant", onRetry: RetryMessage);
-        if (variant == 0)
+        if (_items.Count > 0 || !required)
         {
-            OnExit();
+            _console.Write("Добавить ещё объект в список? 0 – нет, 1 – да:");
+            var variant = _console.ReadIntUntilValid("variant", onRetry: RetryMessage);
+            if (variant == 0)
+            {
+                OnExit();
+            }
+            else
+            {
+                OnContinue();
+            }
         }
         else
         {
             OnContinue();
         }
+
     }
 
     private void WriteHeader()

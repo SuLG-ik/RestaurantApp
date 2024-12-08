@@ -8,9 +8,9 @@ public class UnitFormatter: BaseFormatter<Unit>
     {
         return value switch
         {
-            Unit.Gram => "граммы",
-            Unit.Milliliter => "миллилитры",
-            Unit.Item => "штука",
+            Unit.Kg => "кг.",
+            Unit.Liter => "л.",
+            Unit.Item => "штук.",
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
         };
     }

@@ -17,9 +17,7 @@ public class ProductRequestTests
     {
         _productRequestItem = new ProductRequestItem.Builder()
             .SetProductId(1)
-            .SetUnit(Unit.Gram)
             .SetQuantity(1000)
-            .SetPurchasePrice(1000)
             .Build();
     }
 

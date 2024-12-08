@@ -39,6 +39,11 @@ public class ProductRequest
             _productRequestItems.Add(Validator.RequireNotNull(item, nameof(item)));
             return this;
         }
+        public Builder AddProductRequestItems(IEnumerable<ProductRequestItem> item)
+        {
+            _productRequestItems.AddRange(Validator.RequireNotNull(item, nameof(item)));
+            return this;
+        }
 
         public ProductRequest Build()
         {
