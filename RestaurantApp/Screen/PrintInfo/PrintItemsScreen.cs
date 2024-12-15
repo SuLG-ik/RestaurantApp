@@ -6,24 +6,21 @@ namespace RestaurantApp.Screen.PrintInfo;
 public class PrintItemsScreen : MenuOptionsScreen<PrintItemsOptions>
 {
     public override string? HeaderMessage => "Вывод данных";
-    public override Dictionary<PrintItemsOptions, MenuOption> Options { get; }
 
     private IProductRequestRepository _productRequestRepository;
     private IRestaurantRepository _restaurantRepository;
     private ISupplierRepository _supplierRepository;
     private IProductRepository _productRepository;
 
-    public PrintItemsScreen()
+    public override Dictionary<PrintItemsOptions, MenuOption> Options => new()
     {
-        Options = new Dictionary<PrintItemsOptions, MenuOption>
-        {
-            { PrintItemsOptions.Products, new MenuOption("Продукты", OnProducts) },
-            { PrintItemsOptions.Restaurants, new MenuOption("Рестораны", OnRestaurants) },
-            { PrintItemsOptions.Suppliers, new MenuOption("Поставщики", OnSuppliers) },
-            { PrintItemsOptions.ProductRequests, new MenuOption("Заявки на продукты", OnProductRequests) },
-            { PrintItemsOptions.Quit, new MenuOption("Назад", OnQuit) },
-        };
-    }
+        { PrintItemsOptions.Products, new MenuOption("Продукты", OnProducts) },
+        { PrintItemsOptions.Restaurants, new MenuOption("Рестораны", OnRestaurants) },
+        { PrintItemsOptions.RestaurantMenu, new MenuOption("Меню ресторана", OnRestaurantsMenu) },
+        { PrintItemsOptions.Suppliers, new MenuOption("Поставщики", OnSuppliers) },
+        { PrintItemsOptions.ProductRequests, new MenuOption("Заявки на продукты", OnProductRequests) },
+        { PrintItemsOptions.Quit, new MenuOption("Назад", OnQuit) },
+    };
 
     private void OnProductRequests()
     {
@@ -35,6 +32,11 @@ public class PrintItemsScreen : MenuOptionsScreen<PrintItemsOptions>
     {
         var items = _restaurantRepository.FindAll();
         Navigator?.NavigateTo(new PrintItemsInfoScreen<SavedModel<Restaurant>>(items));
+    }
+
+    private void OnRestaurantsMenu()
+    {
+        Navigator?.NavigateTo(new PrintRestaurantMenuItemsScreen());
     }
 
     private void OnSuppliers()

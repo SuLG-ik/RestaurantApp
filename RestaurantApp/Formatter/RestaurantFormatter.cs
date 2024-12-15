@@ -3,7 +3,7 @@ using RestaurantApp.Model;
 
 namespace RestaurantApp.Formatter;
 
-public class RestaurantFormatter(IFormatter parent) : BaseFormatter<Restaurant>
+public class RestaurantFormatter : BaseFormatter<Restaurant>
 {
     protected override string Format(Restaurant value)
     {
@@ -12,7 +12,6 @@ public class RestaurantFormatter(IFormatter parent) : BaseFormatter<Restaurant>
             .Append(", адрес: ").Append(value.Address)
             .Append(", директор: ").Append(value.DirectorFullname)
             .Append(", телефон: ").Append(value.PhoneNumber)
-            .Append(", пункты меню: ").Append(parent.Format(value.Menu))
             .ToString();
     }
 }
