@@ -1,3 +1,4 @@
+using RestaurantApp.Screen.Analytics;
 using RestaurantApp.Screen.CreateRequest;
 using RestaurantApp.Screen.CreateSale;
 using RestaurantApp.Screen.PrintInfo;
@@ -9,23 +10,25 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
 {
     public override string? HeaderMessage => "Главное меню";
 
-    public override Dictionary<MainMenuOptions, MenuOption> Options { get; }
-
-    public MainScreen()
+    public override Dictionary<MainMenuOptions, MenuOption> Options => new()
     {
-        Options = new Dictionary<MainMenuOptions, MenuOption>
-        {
-            { MainMenuOptions.CreateRequest, new MenuOption("Создать запрос на продукты", OnCreateRequest) },
-            { MainMenuOptions.CreateSale, new MenuOption("Создание продажи", OnCreateSale) },
-            { MainMenuOptions.Registration, new MenuOption("Регистрационные действия", OnRegistrationActions) },
-            { MainMenuOptions.PrintInfo, new MenuOption("Вывод данных", OnPrintInfo) },
-            { MainMenuOptions.Quit, new MenuOption("Выход", OnQuit) },
-        };
-    }
+        { MainMenuOptions.CreateRequest, new MenuOption("Создать запрос на продукты", OnCreateRequest) },
+        { MainMenuOptions.CreateSale, new MenuOption("Создание продажи", OnCreateSale) },
+        { MainMenuOptions.Registration, new MenuOption("Регистрационные действия", OnRegistrationActions) },
+        { MainMenuOptions.PrintInfo, new MenuOption("Вывод данных", OnPrintInfo) },
+        { MainMenuOptions.Analytics, new MenuOption("Аналитика", OnAnalytics) },
+        { MainMenuOptions.Quit, new MenuOption("Выход", OnQuit) },
+    };
 
     private void OnRegistrationActions()
     {
         Navigator?.NavigateTo(new RegistrationActionsScreen());
+    }
+
+
+    private void OnAnalytics()
+    {
+        Navigator?.NavigateTo(new AnalyticsScreen());
     }
 
 

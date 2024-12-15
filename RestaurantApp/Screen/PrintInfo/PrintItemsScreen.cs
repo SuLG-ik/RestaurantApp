@@ -11,6 +11,7 @@ public class PrintItemsScreen : MenuOptionsScreen<PrintItemsOptions>
     private IRestaurantRepository _restaurantRepository;
     private ISupplierRepository _supplierRepository;
     private IProductRepository _productRepository;
+    private ISaleRepository _saleRepository;
 
     public override Dictionary<PrintItemsOptions, MenuOption> Options => new()
     {
@@ -19,6 +20,7 @@ public class PrintItemsScreen : MenuOptionsScreen<PrintItemsOptions>
         { PrintItemsOptions.RestaurantMenu, new MenuOption("Меню ресторана", OnRestaurantsMenu) },
         { PrintItemsOptions.Suppliers, new MenuOption("Поставщики", OnSuppliers) },
         { PrintItemsOptions.ProductRequests, new MenuOption("Заявки на продукты", OnProductRequests) },
+        { PrintItemsOptions.Sales, new MenuOption("Продажи", OnSales) },
         { PrintItemsOptions.Quit, new MenuOption("Назад", OnQuit) },
     };
 
@@ -26,6 +28,12 @@ public class PrintItemsScreen : MenuOptionsScreen<PrintItemsOptions>
     {
         var items = _productRequestRepository.FindAll();
         Navigator?.NavigateTo(new PrintItemsInfoScreen<SavedModel<ProductRequest>>(items));
+    }
+
+    private void OnSales()
+    {
+        var items = _saleRepository.FindAll();
+        Navigator?.NavigateTo(new PrintItemsInfoScreen<SavedModel<Sale>>(items));
     }
 
     private void OnRestaurants()
@@ -63,5 +71,6 @@ public class PrintItemsScreen : MenuOptionsScreen<PrintItemsOptions>
         _productRepository = ServiceLocator.GetService<IProductRepository>();
         _supplierRepository = ServiceLocator.GetService<ISupplierRepository>();
         _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
+        _saleRepository = ServiceLocator.GetService<ISaleRepository>();
     }
 }

@@ -3,7 +3,7 @@ namespace RestaurantApp.Screen.ObjectBuilding;
 public abstract class ObjectBuildingScreen : Screen
 {
     protected abstract string? HeaderMessage { get; }
-    protected abstract string? CompleteMessage { get; }
+    protected virtual string? CompleteMessage => null; 
     protected abstract IScreenFactory[] ScreenFactories { get; }
 
     protected IConsole _console;
