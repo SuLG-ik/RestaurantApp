@@ -38,13 +38,13 @@ public class CreateRequestScreen : ObjectBuildingScreen
     {
         base.Create();
         _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
+        _productRequestRepository = ServiceLocator.GetService<IProductRequestRepository>();
     }
 
     protected override void Complete()
-    { 
+    {
         var productRequest = _builder.Build();
         _productRequestRepository.Add(productRequest);
-        Navigator?.Back();
     }
 
     public override void Display()

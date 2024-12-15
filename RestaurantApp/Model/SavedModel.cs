@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace RestaurantApp.Model;
 
 public interface ISavedModel<out T> where T : class
@@ -11,6 +13,7 @@ public class SavedModel<T> : ISavedModel<T> where T : class
     public int Id { get; }
     public T Data { get; }
 
+    [JsonConstructor]
     private SavedModel(int id, T data)
     {
         Id = id;

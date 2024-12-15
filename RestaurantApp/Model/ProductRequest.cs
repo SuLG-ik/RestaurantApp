@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace RestaurantApp.Model;
 
@@ -8,6 +9,7 @@ public class ProductRequest
     public DateTime RequestDate { get; }
     public ImmutableList<ProductRequestItem> ProductRequestItems { get; }
 
+    [JsonConstructor]
     private ProductRequest(int restaurantId, DateTime requestDate,
         ImmutableList<ProductRequestItem> productRequestItems)
     {

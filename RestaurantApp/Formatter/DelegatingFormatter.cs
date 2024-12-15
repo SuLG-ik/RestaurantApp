@@ -37,11 +37,14 @@ public class DelegatingFormatter : IFormatter
                 parent => new SavedModelFormatter(parent),
                 parent => new MenuItemFormatter(parent),
                 parent => new EnumerableFormatter(parent),
-                _ => new ProductFormatter(),
+                parent => new ProductFormatter(parent),
                 parent => new RestaurantFormatter(parent),
+                parent => new ProductRequestFormatter(parent),
+                _ => new ProductRequestItemFormatter(),
                 _ => new SupplierFormatter(),
                 _ => new ProductGroupFormatter(),
                 _ => new UnitFormatter(),
+                _ => new DateTimeFormatter(),
                 _ => new ToStringFormatter(),
             ]
         );

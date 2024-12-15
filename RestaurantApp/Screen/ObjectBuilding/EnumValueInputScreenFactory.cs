@@ -26,12 +26,13 @@ public class EnumValueInputScreenFactory<T>(
         var variants = new StringBuilder(" ");
         for (var i = 0; i < values.Length; i++)
         {
-            variants.Append($"{i} - {formatter.Format(values[i])}");
+            variants.Append($"{Convert.ToInt32(values[i])} - {formatter.Format(values[i])}");
             if (i != values.Length - 1)
             {
                 variants.Append(", ");
             }
         }
+
         return variants.ToString();
     }
 }

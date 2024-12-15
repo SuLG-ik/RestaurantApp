@@ -2,4 +2,5 @@ using RestaurantApp.Model;
 
 namespace RestaurantApp.Repository;
 
-public class InMemoryProductRequestRepository : InMemoryBaseRepository<ProductRequest>, IProductRequestRepository;
+public class InMemoryProductRequestRepository(List<SavedModel<ProductRequest>> storage)
+    : InMemoryBaseRepository<ProductRequest>(storage), IProductRequestRepository;

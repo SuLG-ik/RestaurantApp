@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace RestaurantApp.Model;
 
@@ -10,6 +11,7 @@ public class Restaurant
     public string DirectorFullname { get; }
     public ImmutableList<MenuItem> Menu { get; }
 
+    [JsonConstructor]
     private Restaurant(string name, string address, string phoneNumber, string directorFullname, ImmutableList<MenuItem> menu)
     {
         Name = name;

@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.Json.Serialization;
 
 namespace RestaurantApp.Model;
 
@@ -10,13 +11,14 @@ public class Product
     public decimal Quantity { get; }
     public int SupplierId { get; }
 
-    public decimal Price => PriceChanges.Last().Value;
+    [JsonIgnore] public decimal Price => PriceChanges.Last().Value;
 
-    private Product(string name, Unit unit, IEnumerable<PriceChange> priceChanges, decimal quantity, int supplierId)
+    [JsonConstructor]
+    private Product(string name, Unit unit, ImmutableList<PriceChange> priceChanges, decimal quantity, int supplierId)
     {
         Name = name;
         Unit = unit;
-        PriceChanges = priceChanges.ToImmutableList();
+        PriceChanges = priceChanges;
         Quantity = quantity;
         SupplierId = supplierId;
     }
@@ -92,7 +94,7 @@ public class Product
             var supplier = Validator.RequireNotNull(_supplierId, nameof(_supplierId));
             var priceChanges = Validator.RequireNotEmpty(_priceChanges, nameof(_priceChanges))
                 .OrderBy(p => p.Date);
-            return new Product(name, unit, priceChanges, quantity, supplier);
+            return new Product(name, unit, priceChanges.ToImmutableList(), quantity, supplier);
         }
     }
 }

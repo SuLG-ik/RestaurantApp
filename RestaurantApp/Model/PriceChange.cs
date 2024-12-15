@@ -1,7 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace RestaurantApp.Model;
 
 public class PriceChange
 {
+    [JsonConstructor]
     public PriceChange(decimal value, DateTime date)
     {
         Value = value;

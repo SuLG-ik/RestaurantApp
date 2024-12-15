@@ -1,9 +1,9 @@
 using RestaurantApp.Formatter;
-using RestaurantApp.Repository;
 
 namespace RestaurantApp;
 
-public class BaseApplication(INavigator<Screen.Screen> navigator) : Application
+public class RestaurantApplication(INavigator<Screen.Screen> navigator, IRepositories repositories)
+    : Application
 {
     public override INavigator<Screen.Screen>? Navigator { get; protected set; }
 
@@ -12,16 +12,14 @@ public class BaseApplication(INavigator<Screen.Screen> navigator) : Application
         var formatter = DelegatingFormatter.Default();
         ServiceLocator.Register<IFormatter>(formatter);
         ServiceLocator.Register<IConsole>(new SystemConsole(formatter));
-        ServiceLocator.Register<ISupplierRepository>(new InMemorySupplierRepository());
-        ServiceLocator.Register<IProductRepository>(new InMemoryProductRepository());
-        ServiceLocator.Register<IRestaurantRepository>(new InMemoryRestaurantRepository());
-        ServiceLocator.Register<IProductRequestRepository>(new InMemoryProductRequestRepository());
+        repositories.Initialize();
         Navigator = navigator;
     }
 
     public override void Destroy()
     {
         base.Destroy();
+        repositories.Destroy();
         ServiceLocator.Reset();
     }
 }

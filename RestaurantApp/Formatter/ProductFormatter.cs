@@ -3,7 +3,7 @@ using RestaurantApp.Model;
 
 namespace RestaurantApp.Formatter;
 
-public class ProductFormatter : BaseFormatter<Product>
+public class ProductFormatter(IFormatter formatter): BaseFormatter<Product>
 {
     protected override string Format(Product value)
     {
@@ -14,7 +14,7 @@ public class ProductFormatter : BaseFormatter<Product>
             .Append(", количество: ")
             .Append(value.Quantity)
             .Append(", единица измерения: ")
-            .Append(value.Unit)
+            .Append(formatter.Format(value.Unit))
             .Append(", ID поставщика ")
             .Append(value.SupplierId)
             .ToString();

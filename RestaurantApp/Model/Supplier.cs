@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace RestaurantApp.Model;
 
 public class Supplier
@@ -10,7 +12,9 @@ public class Supplier
     public string AccountNumber { get; }
     public string Inn { get; }
 
-    private Supplier(string name, string address, string director, string phoneNumber, string bank, string accountNumber,
+    [JsonConstructor]
+    private Supplier(string name, string address, string director, string phoneNumber, string bank,
+        string accountNumber,
         string inn)
     {
         Name = name;

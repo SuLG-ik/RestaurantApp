@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace RestaurantApp.Model;
 
 public class ProductRequestItem
@@ -5,6 +7,7 @@ public class ProductRequestItem
     public int ProductId { get; }
     public decimal Quantity { get; }
     
+    [JsonConstructor]
     private ProductRequestItem(int productId, decimal quantity)
     {
         ProductId = productId;

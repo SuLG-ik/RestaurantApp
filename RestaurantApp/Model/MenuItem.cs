@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace RestaurantApp.Model;
 
 public class MenuItem
@@ -6,6 +8,7 @@ public class MenuItem
     public MenuItemGroup Group { get; }
     public decimal Price { get; }
 
+    [JsonConstructor]
     private MenuItem(string name, MenuItemGroup group, decimal price)
     {
         Name = name;

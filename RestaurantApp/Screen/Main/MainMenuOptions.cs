@@ -4,5 +4,6 @@ public enum MainMenuOptions
 {
     CreateRequest = 1,
     Registration = 3,
+    PrintInfo = 4,
     Quit = 0,
 }

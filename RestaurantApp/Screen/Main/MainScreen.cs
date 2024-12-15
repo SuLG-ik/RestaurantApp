@@ -1,4 +1,5 @@
 using RestaurantApp.Screen.CreateRequest;
+using RestaurantApp.Screen.PrintInfo;
 using RestaurantApp.Screen.RegistrationActions;
 
 namespace RestaurantApp.Screen.Main;
@@ -15,6 +16,7 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
         {
             { MainMenuOptions.CreateRequest, new MenuOption("Создать запрос на продукты", OnCreateRequest) },
             { MainMenuOptions.Registration, new MenuOption("Регистрационные действия", OnRegistrationActions) },
+            { MainMenuOptions.PrintInfo, new MenuOption("Вывод данных", OnPrintInfo) },
             { MainMenuOptions.Quit, new MenuOption("Выход", OnQuit) },
         };
     }
@@ -22,6 +24,11 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
     private void OnRegistrationActions()
     {
         Navigator?.NavigateTo(new RegistrationActionsScreen());
+    }
+
+    private void OnPrintInfo()
+    {
+        Navigator?.NavigateTo(new PrintItemsScreen());
     }
 
     private void OnCreateRequest()

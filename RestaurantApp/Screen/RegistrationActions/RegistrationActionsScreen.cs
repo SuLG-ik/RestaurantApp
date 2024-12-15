@@ -22,17 +22,17 @@ public class RegistrationActionsScreen : MenuOptionsScreen<RegistrationActionsOp
 
     private void OnSupplier()
     {
-        Navigator?.ReplaceCurrent(new RegistrationSupplierActionScreen());
+        Navigator?.NavigateTo(new RegistrationSupplierActionScreen());
     }
 
     private void OnRestaurant()
     {
-        Navigator?.ReplaceCurrent(new RegistrationRestaurantActionScreen());
+        Navigator?.NavigateTo(new RegistrationRestaurantActionScreen());
     }
 
     private void OnProduct()
     {
-        Navigator?.ReplaceCurrent(new RegistrationProductActionScreen());
+        Navigator?.NavigateTo(new RegistrationProductActionScreen());
     }
 
     private void OnBack()
