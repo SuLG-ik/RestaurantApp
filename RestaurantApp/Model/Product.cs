@@ -1,29 +1,48 @@
+using System.Collections.Immutable;
+using System.Text.Json.Serialization;
+
 namespace RestaurantApp.Model;
 
 public class Product
 {
     public string Name { get; }
-    public string Unit { get; }
-    public decimal Price { get; }
-    public int Quantity { get; }
-    public Supplier Supplier { get; }
+    public Unit Unit { get; }
+    public ImmutableList<PriceChange> PriceChanges { get; }
+    public decimal Quantity { get; }
+    public int SupplierId { get; }
 
-    private Product(string name, string unit, decimal price, int quantity, Supplier supplier)
+    [JsonIgnore] public decimal Price => PriceChanges.Last().Value;
+
+    [JsonConstructor]
+    private Product(string name, Unit unit, ImmutableList<PriceChange> priceChanges, decimal quantity, int supplierId)
     {
         Name = name;
         Unit = unit;
-        Price = price;
+        PriceChanges = priceChanges;
         Quantity = quantity;
-        Supplier = supplier;
+        SupplierId = supplierId;
     }
 
     public class Builder
     {
+        public Builder()
+        {
+        }
+
+        public Builder(Product product)
+        {
+            _name = product.Name;
+            _unit = product.Unit;
+            _priceChanges = product.PriceChanges.ToList();
+            _quantity = product.Quantity;
+            _supplierId = product.SupplierId;
+        }
+
         private string? _name;
-        private string? _unit;
-        private decimal? _price;
-        private int? _quantity;
-        private Supplier? _supplier;
+        private Unit? _unit;
+        private List<PriceChange> _priceChanges = [];
+        private decimal? _quantity;
+        private int? _supplierId;
 
         public Builder SetName(string name)
         {
@@ -31,27 +50,39 @@ public class Product
             return this;
         }
 
-        public Builder SetUnit(string unit)
+        public Builder SetUnit(Unit unit)
         {
-            _unit = Validator.RequireNotBlank(unit, nameof(unit));
+            _unit = unit;
             return this;
         }
 
         public Builder SetPrice(decimal price)
         {
-            _price = Validator.RequireGreaterThan(price, 0, nameof(price));
+            _priceChanges.Add(new PriceChange(price, DateTime.Now));
             return this;
         }
 
-        public Builder SetQuantity(int quantity)
+        public Builder AddPriceChange(PriceChange priceChange)
+        {
+            _priceChanges.Add(priceChange);
+            return this;
+        }
+
+        public Builder AddPriceChanges(IEnumerable<PriceChange> priceChange)
+        {
+            _priceChanges.AddRange(priceChange);
+            return this;
+        }
+
+        public Builder SetQuantity(decimal quantity)
         {
             _quantity = Validator.RequireGreaterOrEqualsThan(quantity, 0, nameof(quantity));
             return this;
         }
 
-        public Builder SetSupplier(Supplier supplier)
+        public Builder SetSupplierId(int supplierId)
         {
-            _supplier = Validator.RequireNotNull(supplier, nameof(supplier));
+            _supplierId = Validator.RequireGreaterThan(supplierId, 0, nameof(supplierId));
             return this;
         }
 
@@ -60,9 +91,10 @@ public class Product
             var name = Validator.RequireNotNull(_name, nameof(_name));
             var unit = Validator.RequireNotNull(_unit, nameof(_unit));
             var quantity = Validator.RequireNotNull(_quantity, nameof(_quantity));
-            var price = Validator.RequireNotNull(_price, nameof(_price));
-            var supplier = Validator.RequireNotNull(_supplier, nameof(_supplier));
-            return new Product(name, unit, price, quantity, supplier);
+            var supplier = Validator.RequireNotNull(_supplierId, nameof(_supplierId));
+            var priceChanges = Validator.RequireNotEmpty(_priceChanges, nameof(_priceChanges))
+                .OrderBy(p => p.Date);
+            return new Product(name, unit, priceChanges.ToImmutableList(), quantity, supplier);
         }
     }
 }

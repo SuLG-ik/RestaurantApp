@@ -1,4 +1,3 @@
-using ConsoleApp1;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RestaurantApp.Tests;

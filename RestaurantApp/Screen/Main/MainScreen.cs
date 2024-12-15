@@ -1,48 +1,43 @@
-using ConsoleApp1;
+using RestaurantApp.Screen.CreateRequest;
+using RestaurantApp.Screen.PrintInfo;
+using RestaurantApp.Screen.RegistrationActions;
 
 namespace RestaurantApp.Screen.Main;
 
-public class MainScreen: Screen
+public class MainScreen : MenuOptionsScreen<MainMenuOptions>
 {
-    
-    private IConsole _console;
+    public override string? HeaderMessage => "Главное меню";
 
-    protected override void Create()
-    {
-        _console = ServiceLocator.GetService<IConsole>();
-    }
+    public override Dictionary<MainMenuOptions, MenuOption> Options { get; }
 
-    public override void Display()
+    public MainScreen()
     {
-        ShowMenu();
-        switch (ReadSelection())
+        Options = new Dictionary<MainMenuOptions, MenuOption>
         {
-            case MainMenuOptions.Quit:
-                Navigator?.Back();
-                break;
-            case MainMenuOptions.Registration:
-                break;
-            default:
-                ShowRetryMessage();
-                break;
-        }
-    }
-    
-    private MainMenuOptions ReadSelection()
-    {
-        _console.Write("Выберите действие: ");
-        return _console.ReadEnumUntilValid<MainMenuOptions>(onRetry: ShowRetryMessage);
+            { MainMenuOptions.CreateRequest, new MenuOption("Создать запрос на продукты", OnCreateRequest) },
+            { MainMenuOptions.Registration, new MenuOption("Регистрационные действия", OnRegistrationActions) },
+            { MainMenuOptions.PrintInfo, new MenuOption("Вывод данных", OnPrintInfo) },
+            { MainMenuOptions.Quit, new MenuOption("Выход", OnQuit) },
+        };
     }
 
-    private void ShowRetryMessage()
+    private void OnRegistrationActions()
     {
-        _console.Write("Такого пункта меню нет! Попробуйте снова: ");
+        Navigator?.NavigateTo(new RegistrationActionsScreen());
     }
-    
-    private void ShowMenu()
+
+    private void OnPrintInfo()
     {
-        _console.WriteLine("Главное меню. Выберите номер операции");
-        _console.WriteLine("1. Регистрационные действия");
-        _console.WriteLine("0. Выход");
+        Navigator?.NavigateTo(new PrintItemsScreen());
     }
-}
+
+    private void OnCreateRequest()
+    {
+        Navigator?.NavigateTo(new CreateRequestScreen());
+    }
+
+    private void OnQuit()
+    {
+        Navigator?.Back();
+    }
+};

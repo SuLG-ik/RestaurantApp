@@ -17,6 +17,11 @@ public class StackNavigator<T> : INavigator<T>
 
     public T? CurrentScreen => _backstack.LastOrDefault();
 
+    public bool Contains(T screen)
+    {
+        return _backstack.Contains(screen);
+    }
+
     public void NavigateTo(T screen)
     {
         _backstack.Add(screen);

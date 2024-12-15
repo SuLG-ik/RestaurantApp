@@ -1,0 +1,452 @@
+[
+  {
+    "Id": 1,
+    "Data": {
+      "Name": "Помидоры",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 150,
+          "Date": "2024-12-09T01:11:15.894604+07:00"
+        }
+      ],
+      "Quantity": 1200,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 2,
+    "Data": {
+      "Name": "Огурцы",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 100,
+          "Date": "2024-12-09T01:11:15.894604+07:00"
+        }
+      ],
+      "Quantity": 1200,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 3,
+    "Data": {
+      "Name": "Яблоки",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 200,
+          "Date": "2024-12-01T11:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1000,
+      "SupplierId": 2
+    }
+  },
+  {
+    "Id": 4,
+    "Data": {
+      "Name": "Груши",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 180,
+          "Date": "2024-12-02T10:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 800,
+      "SupplierId": 2
+    }
+  },
+  {
+    "Id": 5,
+    "Data": {
+      "Name": "Молоко",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 50,
+          "Date": "2024-12-05T12:30:00.000000+07:00"
+        }
+      ],
+      "Quantity": 500,
+      "SupplierId": 3
+    }
+  },
+  {
+    "Id": 6,
+    "Data": {
+      "Name": "Творог",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 120,
+          "Date": "2024-12-06T09:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 400,
+      "SupplierId": 3
+    }
+  },
+  {
+    "Id": 7,
+    "Data": {
+      "Name": "Хлеб",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 30,
+          "Date": "2024-12-08T14:15:00.000000+07:00"
+        }
+      ],
+      "Quantity": 300,
+      "SupplierId": 4
+    }
+  },
+  {
+    "Id": 8,
+    "Data": {
+      "Name": "Батон",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 35,
+          "Date": "2024-12-09T10:30:00.000000+07:00"
+        }
+      ],
+      "Quantity": 350,
+      "SupplierId": 4
+    }
+  },
+  {
+    "Id": 9,
+    "Data": {
+      "Name": "Говядина",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 500,
+          "Date": "2024-12-03T09:45:00.000000+07:00"
+        }
+      ],
+      "Quantity": 400,
+      "SupplierId": 5
+    }
+  },
+  {
+    "Id": 10,
+    "Data": {
+      "Name": "Свинина",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 450,
+          "Date": "2024-12-04T10:15:00.000000+07:00"
+        }
+      ],
+      "Quantity": 500,
+      "SupplierId": 5
+    }
+  },
+  {
+    "Id": 11,
+    "Data": {
+      "Name": "Сыр",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 350,
+          "Date": "2024-12-06T16:20:00.000000+07:00"
+        }
+      ],
+      "Quantity": 250,
+      "SupplierId": 6
+    }
+  },
+  {
+    "Id": 12,
+    "Data": {
+      "Name": "Масло сливочное",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 400,
+          "Date": "2024-12-07T11:20:00.000000+07:00"
+        }
+      ],
+      "Quantity": 300,
+      "SupplierId": 6
+    }
+  },
+  {
+    "Id": 13,
+    "Data": {
+      "Name": "Лимонад",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 40,
+          "Date": "2024-12-07T10:10:00.000000+07:00"
+        }
+      ],
+      "Quantity": 600,
+      "SupplierId": 7
+    }
+  },
+  {
+    "Id": 14,
+    "Data": {
+      "Name": "Минеральная вода",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 20,
+          "Date": "2024-12-08T13:15:00.000000+07:00"
+        }
+      ],
+      "Quantity": 800,
+      "SupplierId": 7
+    }
+  },
+  {
+    "Id": 15,
+    "Data": {
+      "Name": "Шоколад",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 100,
+          "Date": "2024-12-04T13:40:00.000000+07:00"
+        }
+      ],
+      "Quantity": 700,
+      "SupplierId": 8
+    }
+  },
+  {
+    "Id": 16,
+    "Data": {
+      "Name": "Печенье",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 50,
+          "Date": "2024-12-05T15:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1000,
+      "SupplierId": 8
+    }
+  },
+  {
+    "Id": 17,
+    "Data": {
+      "Name": "Картофель",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 30,
+          "Date": "2024-12-03T08:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1500,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 18,
+    "Data": {
+      "Name": "Морковь",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 25,
+          "Date": "2024-12-04T10:35:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1600,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 19,
+    "Data": {
+      "Name": "Капуста",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 20,
+          "Date": "2024-12-05T11:45:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1400,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 20,
+    "Data": {
+      "Name": "Мандарины",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 220,
+          "Date": "2024-12-02T14:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1000,
+      "SupplierId": 2
+    }
+  },
+  {
+    "Id": 21,
+    "Data": {
+      "Name": "Перец болгарский",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 180,
+          "Date": "2024-12-02T10:15:00.000000+07:00"
+        }
+      ],
+      "Quantity": 900,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 22,
+    "Data": {
+      "Name": "Апельсины",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 230,
+          "Date": "2024-12-03T09:30:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1100,
+      "SupplierId": 2
+    }
+  },
+  {
+    "Id": 23,
+    "Data": {
+      "Name": "Сметана",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 80,
+          "Date": "2024-12-06T08:45:00.000000+07:00"
+        }
+      ],
+      "Quantity": 600,
+      "SupplierId": 3
+    }
+  },
+  {
+    "Id": 24,
+    "Data": {
+      "Name": "Булочка",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 25,
+          "Date": "2024-12-08T15:15:00.000000+07:00"
+        }
+      ],
+      "Quantity": 500,
+      "SupplierId": 4
+    }
+  },
+  {
+    "Id": 25,
+    "Data": {
+      "Name": "Куриное мясо",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 300,
+          "Date": "2024-12-04T12:30:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1000,
+      "SupplierId": 5
+    }
+  },
+  {
+    "Id": 26,
+    "Data": {
+      "Name": "Йогурт",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 90,
+          "Date": "2024-12-07T12:10:00.000000+07:00"
+        }
+      ],
+      "Quantity": 700,
+      "SupplierId": 6
+    }
+  },
+  {
+    "Id": 27,
+    "Data": {
+      "Name": "Квас",
+      "Unit": 2,
+      "PriceChanges": [
+        {
+          "Value": 50,
+          "Date": "2024-12-08T13:40:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1000,
+      "SupplierId": 7
+    }
+  },
+  {
+    "Id": 28,
+    "Data": {
+      "Name": "Мармелад",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 120,
+          "Date": "2024-12-05T16:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 900,
+      "SupplierId": 8
+    }
+  },
+  {
+    "Id": 29,
+    "Data": {
+      "Name": "Капуста цветная",
+      "Unit": 1,
+      "PriceChanges": [
+        {
+          "Value": 90,
+          "Date": "2024-12-03T17:00:00.000000+07:00"
+        }
+      ],
+      "Quantity": 800,
+      "SupplierId": 1
+    }
+  },
+  {
+    "Id": 30,
+    "Data": {
+      "Name": "Чай черный",
+      "Unit": 3,
+      "PriceChanges": [
+        {
+          "Value": 150,
+          "Date": "2024-12-04T14:20:00.000000+07:00"
+        }
+      ],
+      "Quantity": 1200,
+      "SupplierId": 7
+    }
+  }
+]

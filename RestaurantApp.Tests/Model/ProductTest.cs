@@ -1,4 +1,4 @@
-using ConsoleApp1;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using RestaurantApp.Model;
 
@@ -11,40 +11,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 [TestSubject(typeof(Product.Builder))]
 public class ProductTests
 {
-    private static Supplier _supplier;
-
-    [TestInitialize]
-    public void Setup()
-    {
-        _supplier = new Supplier.Builder()
-            .SetName("Supplier 1")
-            .SetAddress("Address")
-            .SetDirector("Director")
-            .SetPhoneNumber("123456789")
-            .SetBank("Bank")
-            .SetAccountNumber("123456789")
-            .SetInn("123456789")
-            .Build();
-
-    }
     
     [TestMethod]
     public void Build_WithValidParameters_ShouldCreateProduct()
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit("kg")
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetQuantity(100)
-            .SetSupplier(_supplier);
+            .SetSupplierId(1);
 
         var product = builder.Build();
 
         Assert.AreEqual("Flour", product.Name);
-        Assert.AreEqual("kg", product.Unit);
+        Assert.AreEqual(Unit.Kg, product.Unit);
         Assert.AreEqual(1.99m, product.Price);
         Assert.AreEqual(100, product.Quantity);
-        Assert.AreEqual(_supplier, product.Supplier);
+        Assert.AreEqual(1, product.SupplierId);
     }
 
     [TestMethod]
@@ -53,14 +37,6 @@ public class ProductTests
         var builder = new Product.Builder();
 
         Assert.ThrowsException<ValidationNotBlankException>(() => builder.SetName(""));
-    }
-
-    [TestMethod]
-    public void SetUnit_WithEmptyString_ShouldThrowValidationNotBlankException()
-    {
-        var builder = new Product.Builder();
-
-        Assert.ThrowsException<ValidationNotBlankException>(() => builder.SetUnit(""));
     }
 
     [TestMethod]
@@ -76,25 +52,25 @@ public class ProductTests
     {
         var builder = new Product.Builder();
 
-        Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetQuantity(-1));
+        Assert.ThrowsException<ValidationNotCourseInException<decimal>>(() => builder.SetQuantity(-1));
     }
 
     [TestMethod]
-    public void SetSupplier_WithNull_ShouldThrowValidationNotNullException()
+    public void SetSupplier_WithValueLessThanZero_ShouldThrowValidationNotNullException()
     {
         var builder = new Product.Builder();
 
-        Assert.ThrowsException<ValidationNullException>(() => builder.SetSupplier(null!));
+        Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetSupplierId(0));
     }
 
     [TestMethod]
     public void Build_WithoutName_ShouldThrowValidationNotNullException()
     {
         var builder = new Product.Builder()
-            .SetUnit("kg")
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetQuantity(100)
-            .SetSupplier(_supplier);
+            .SetSupplierId(1);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }
@@ -106,7 +82,7 @@ public class ProductTests
             .SetName("Flour")
             .SetPrice(1.99m)
             .SetQuantity(100)
-            .SetSupplier(_supplier);
+            .SetSupplierId(1);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }
@@ -116,11 +92,11 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit("kg")
+            .SetUnit(Unit.Kg)
             .SetQuantity(100)
-            .SetSupplier(_supplier);
+            .SetSupplierId(1);
 
-        Assert.ThrowsException<ValidationNullException>(() => builder.Build());
+        Assert.ThrowsException<ValidationLengthException<List<PriceChange>>>(() => builder.Build());
     }
 
     [TestMethod]
@@ -128,9 +104,9 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit("kg")
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
-            .SetSupplier(_supplier);
+            .SetSupplierId(1);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }
@@ -140,7 +116,7 @@ public class ProductTests
     {
         var builder = new Product.Builder()
             .SetName("Flour")
-            .SetUnit("kg")
+            .SetUnit(Unit.Kg)
             .SetPrice(1.99m)
             .SetQuantity(100);
 
