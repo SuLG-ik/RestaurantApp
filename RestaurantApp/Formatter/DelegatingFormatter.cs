@@ -47,6 +47,8 @@ public class DelegatingFormatter : IFormatter
                 _ => new ProductGroupFormatter(),
                 _ => new UnitFormatter(),
                 _ => new DateTimeFormatter(),
+                parent => new SaleFormatter(parent),
+                _ => new SaleItemFormatter(),
                 _ => new ToStringFormatter(),
             ]
         );

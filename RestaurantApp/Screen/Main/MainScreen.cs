@@ -1,4 +1,5 @@
 using RestaurantApp.Screen.CreateRequest;
+using RestaurantApp.Screen.CreateSale;
 using RestaurantApp.Screen.PrintInfo;
 using RestaurantApp.Screen.RegistrationActions;
 
@@ -15,6 +16,7 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
         Options = new Dictionary<MainMenuOptions, MenuOption>
         {
             { MainMenuOptions.CreateRequest, new MenuOption("Создать запрос на продукты", OnCreateRequest) },
+            { MainMenuOptions.CreateSale, new MenuOption("Создание продажи", OnCreateSale) },
             { MainMenuOptions.Registration, new MenuOption("Регистрационные действия", OnRegistrationActions) },
             { MainMenuOptions.PrintInfo, new MenuOption("Вывод данных", OnPrintInfo) },
             { MainMenuOptions.Quit, new MenuOption("Выход", OnQuit) },
@@ -24,6 +26,12 @@ public class MainScreen : MenuOptionsScreen<MainMenuOptions>
     private void OnRegistrationActions()
     {
         Navigator?.NavigateTo(new RegistrationActionsScreen());
+    }
+
+
+    private void OnCreateSale()
+    {
+        Navigator?.NavigateTo(new CreateSaleScreen());
     }
 
     private void OnPrintInfo()

@@ -20,7 +20,7 @@ public class CreateSaleScreen : ObjectBuildingScreen
         new SingleObjectSelectScreenFactory<SavedModel<Restaurant>>("Ресторан", _restaurantRepository.FindAll,
             OnRestaurantComplete,
             onFailed: OnRestaurantFailed),
-        new DateTimeValueInputScreenFactory("Дата прожи", (value) => _builder.SetDate(value)),
+        new DateTimeValueInputScreenFactory("Дата продажи", (value) => _builder.SetDate(value)),
         new MultipleItemsBuildingScreenFactory<SaleItem>(
             "Пункт меню",
             new SaleItemBuilderScreenFactory(GetRestaurantId),
@@ -37,6 +37,7 @@ public class CreateSaleScreen : ObjectBuildingScreen
 
     private void OnRestaurantComplete(SavedModel<Restaurant> value)
     {
+        _restaurant = value;
         _builder.SetRestaurantId(value.Id);
     }
 
@@ -50,13 +51,20 @@ public class CreateSaleScreen : ObjectBuildingScreen
     {
         base.Create();
         _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
-        ServiceLocator.GetService<IProductsService>();
+        _saleService = ServiceLocator.GetService<ISaleService>();
     }
 
     protected override void Complete()
     {
         var saleRequest = _builder.Build();
-        _saleService.AddSale(saleRequest);
+        if (_saleService.AddSale(saleRequest))
+        {
+            _console.WriteLine("Продажа создана!");
+        }
+        else
+        {
+            _console.WriteLine("Продажа не создана. Недостаточно продуктов!");
+        }
     }
 
     public override void Display()
