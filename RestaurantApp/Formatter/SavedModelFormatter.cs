@@ -8,7 +8,7 @@ public class SavedModelFormatter(IFormatter generalFormatter) : IFormatter
     {
         ArgumentNullException.ThrowIfNull(value);
         var model = (ISavedModel<object>)value;
-        return $"Созранённый объект: ID: {model.Id}, Данные: {generalFormatter.Format(model.Data)}";
+        return $"ID: {model.Id}, {generalFormatter.Format(model.Data)}";
     }
 
     public bool Supports(object value)
