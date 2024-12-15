@@ -41,6 +41,7 @@ public class DelegatingFormatter : IFormatter
                 _ => new RestaurantFormatter(),
                 parent => new ProductRequestFormatter(parent),
                 parent => new ProductEditingFormatter(parent),
+                parent => new IngredientFormatter(parent),
                 _ => new ProductRequestItemFormatter(),
                 _ => new SupplierFormatter(),
                 _ => new ProductGroupFormatter(),

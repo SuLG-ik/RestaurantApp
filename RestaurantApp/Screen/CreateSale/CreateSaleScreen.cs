@@ -3,31 +3,42 @@ using RestaurantApp.Repository;
 using RestaurantApp.Screen.ObjectBuilding;
 using RestaurantApp.Service;
 
-namespace RestaurantApp.Screen.CreateRequest;
+namespace RestaurantApp.Screen.CreateSale;
 
-public class CreateRequestScreen : ObjectBuildingScreen
+public class CreateSaleScreen : ObjectBuildingScreen
 {
     protected override string? HeaderMessage => "Создание заявки на продукты";
     protected override string? CompleteMessage => "Создание заявки на поступление продукта";
 
-    private ProductRequest.Builder _builder = new();
+    private Sale.Builder _builder = new();
     private IRestaurantRepository _restaurantRepository;
-    private IProductsService _iProductsService;
+    private ISaleService _saleService;
+    private SavedModel<Restaurant> _restaurant;
 
     protected override IScreenFactory[] ScreenFactories =>
     [
         new SingleObjectSelectScreenFactory<SavedModel<Restaurant>>("Ресторан", _restaurantRepository.FindAll,
-            (value) => _builder.SetRestaurantId(value.Id),
+            OnRestaurantComplete,
             onFailed: OnRestaurantFailed),
-        new DateTimeValueInputScreenFactory("Дата заявки", (value) => _builder.SetRequestDate(value)),
-        new MultipleItemsBuildingScreenFactory<ProductRequestItem>(
-            "Продукты",
-            new ProductRequestItemBuilderScreenFactory(),
-            onComplete: (value) => _builder.AddProductRequestItems(value),
+        new DateTimeValueInputScreenFactory("Дата прожи", (value) => _builder.SetDate(value)),
+        new MultipleItemsBuildingScreenFactory<SaleItem>(
+            "Пункт меню",
+            new SaleItemBuilderScreenFactory(GetRestaurantId),
+            onComplete: (value) => _builder.AddSaleItems(value),
             required: true
         ),
     ];
 
+
+    private int GetRestaurantId()
+    {
+        return _restaurant.Id;
+    }
+
+    private void OnRestaurantComplete(SavedModel<Restaurant> value)
+    {
+        _builder.SetRestaurantId(value.Id);
+    }
 
     private void OnRestaurantFailed()
     {
@@ -39,13 +50,13 @@ public class CreateRequestScreen : ObjectBuildingScreen
     {
         base.Create();
         _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
-        _iProductsService = ServiceLocator.GetService<IProductsService>();
+        ServiceLocator.GetService<IProductsService>();
     }
 
     protected override void Complete()
     {
-        var productRequest = _builder.Build();
-        _iProductsService.AddProductRequest(productRequest);
+        var saleRequest = _builder.Build();
+        _saleService.AddSale(saleRequest);
     }
 
     public override void Display()

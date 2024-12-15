@@ -13,7 +13,7 @@ public class ProductRequestItemBuilderScreen(Action<ProductRequestItem> onComple
 
     private readonly ProductRequestItem.Builder _builder = new();
     private IProductRepository _productRepository;
-    private IProductRequestsService _productRequestsService;
+    private IProductsService _iProductsService;
 
     protected override IScreenFactory[] ScreenFactories =>
     [
@@ -24,7 +24,7 @@ public class ProductRequestItemBuilderScreen(Action<ProductRequestItem> onComple
 
     private List<ProductEditing> FindAllProducts()
     {
-        return _productRequestsService.GetProductEditing(items);
+        return _iProductsService.GetProductEditing(items);
     }
 
     private void OnProductFailed()
@@ -37,13 +37,13 @@ public class ProductRequestItemBuilderScreen(Action<ProductRequestItem> onComple
     {
         base.Create();
         _productRepository = ServiceLocator.GetService<IProductRepository>();
-        _productRequestsService = ServiceLocator.GetService<IProductRequestsService>();
+        _iProductsService = ServiceLocator.GetService<IProductsService>();
     }
 
     protected override void Complete()
     {
         var menuItem = _builder.Build();
-        if (!_productRequestsService.IsProductRequestItemQuantityAvailable(menuItem, items))
+        if (!_iProductsService.IsProductRequestItemQuantityAvailable(menuItem, items))
         {
             _console.WriteLine("Невозможно заказать больше, чем есть на складе!");
             return;

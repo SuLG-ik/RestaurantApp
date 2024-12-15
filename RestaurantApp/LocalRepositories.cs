@@ -20,6 +20,9 @@ public class LocalRepositories : IRepositories
             new InMemoryMenuItemRepository(GetAll<MenuItem>(KeyMenuItems)));
         ServiceLocator.Register<IRestaurantMenuItemRepository>(
             new InMemoryRestaurantMenuItemRepository(GetAll<RestaurantMenuItem>(KeyRestaurantMenuItems)));
+        ServiceLocator.Register<ISaleRepository>(new InMemorySaleRepository(GetAll<Sale>(KeySales)));
+        ServiceLocator.Register<IProductDeductionRepository>(
+            new InMemoryProductDeductionRepository(GetAll<ProductDeduction>(KeyProductDeductions)));
     }
 
     public void Destroy()
@@ -30,6 +33,7 @@ public class LocalRepositories : IRepositories
         SaveAll(ServiceLocator.GetService<IProductRequestRepository>(), KeyProductRequests);
         SaveAll(ServiceLocator.GetService<IMenuItemRepository>(), KeyMenuItems);
         SaveAll(ServiceLocator.GetService<IRestaurantMenuItemRepository>(), KeyRestaurantMenuItems);
+        SaveAll(ServiceLocator.GetService<ISaleRepository>(), KeySales);
     }
 
     private static List<SavedModel<T>> GetAll<T>(string name) where T : class
@@ -50,4 +54,6 @@ public class LocalRepositories : IRepositories
     private static readonly string KeyProductRequests = "productrequests";
     private static readonly string KeyMenuItems = "menuitems";
     private static readonly string KeyRestaurantMenuItems = "restaurantmenuitems";
+    private static readonly string KeySales = "sales";
+    private static readonly string KeyProductDeductions = "productdeductions";
 }

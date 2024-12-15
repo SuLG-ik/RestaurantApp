@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace RestaurantApp;
@@ -68,10 +69,10 @@ public static partial class Validator
         return value;
     }
 
-    public static List<T> RequireNotEmpty<T>(List<T> value, string tag)
+    public static T RequireNotEmpty<T>(T value, string tag) where T : IEnumerable<object>
     {
-        if (value.Count == 0)
-            throw new ValidationLengthException<List<T>>(value, 1, int.MaxValue, tag,
+        if (!value.Any())
+            throw new ValidationLengthException<T>(value, 1, int.MaxValue, tag,
                 $"{tag}: Value must be not empty");
         return value;
     }

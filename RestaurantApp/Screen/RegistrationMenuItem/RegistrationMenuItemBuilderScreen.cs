@@ -18,7 +18,18 @@ public class RegistrationMenuItemBuilderScreen : ObjectBuildingScreen
         new StringValueInputScreenFactory("Наименование", (value) => _builder.SetName(value)),
         new DecimalValueInputScreenFactory("Цена", (value) => _builder.SetPrice(value)),
         new EnumValueInputScreenFactory<MenuItemGroup>("Группа", (value) => _builder.SetGroup(value)),
+        new MultipleItemsBuildingScreenFactory<Ingredient>(
+            "Ингредиенты",
+            new IngredientsBuilderScreenFactory(),
+            OnIngredientsComplete,
+            required: true
+        ),
     ];
+
+    private void OnIngredientsComplete(IEnumerable<Ingredient> items)
+    {
+        _builder.SetIngredients(items);
+    }
 
     protected override void Create()
     {

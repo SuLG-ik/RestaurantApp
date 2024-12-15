@@ -3,11 +3,22 @@ using RestaurantApp.Repository;
 
 namespace RestaurantApp.Service;
 
-public class LocalProductRequestService(
+public class LocalProductService(
     IProductRepository productRepository,
-    IProductRequestRepository productRequestRepository
-) : IProductRequestsService
+    IProductRequestRepository productRequestRepository,
+    IProductDeductionRepository productDeductionRepository
+) : IProductsService
 {
+    public decimal CalculateProductsQuantityInRestaurant(int restaurantId, int productId)
+    {
+        var productRequests = productRequestRepository
+            .FindAllByRestaurantIdAndContainsItemWithProductId(restaurantId, productId)
+            .SelectMany(item => item.Data.ProductRequestItems)
+            .Where(item => item.ProductId == productId);
+        var productDeductions = productDeductionRepository.FindAllByRestaurantIdAndProductId(restaurantId, productId);
+        return productRequests.Sum(request => request.Quantity) - productDeductions.Sum(item => item.Data.RestaurantId);
+    }
+
     public void AddProductRequest(ProductRequest request)
     {
         var items = SimplifyProductRequestItems(request.ProductRequestItems);

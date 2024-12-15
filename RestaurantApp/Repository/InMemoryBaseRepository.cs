@@ -7,7 +7,7 @@ public abstract class InMemoryBaseRepository<T> : IRepository<T> where T : class
     protected readonly Dictionary<int, T> _storage;
     private readonly IIdGenerator _idGenerator;
 
-    protected InMemoryBaseRepository(List<SavedModel<T>> storage)
+    protected InMemoryBaseRepository(IEnumerable<SavedModel<T>> storage)
     {
         _storage = new Dictionary<int, T>();
         var maxId = 0;
