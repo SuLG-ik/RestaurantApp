@@ -5,13 +5,13 @@ namespace RestaurantApp.Model;
 public class SaleItem
 {
     public int MenuItemId { get; }
-    public decimal Quantity { get; }
+    public int Quantity { get; }
     public decimal Price { get; }
 
     [JsonIgnore] public decimal TotalPrice => Price * Quantity;
 
     [JsonConstructor]
-    private SaleItem(int menuItemId, decimal quantity, decimal price)
+    private SaleItem(int menuItemId, int quantity, decimal price)
     {
         MenuItemId = menuItemId;
         Quantity = quantity;
@@ -21,7 +21,7 @@ public class SaleItem
     public class Builder
     {
         private int? _menuItemId;
-        private decimal? _quantity;
+        private int? _quantity;
         private decimal? _price;
 
         public Builder()
@@ -41,7 +41,7 @@ public class SaleItem
             return this;
         }
 
-        public Builder SetQuantity(decimal quantity)
+        public Builder SetQuantity(int quantity)
         {
             _quantity = Validator.RequireGreaterOrEqualsThan(quantity, 0, nameof(quantity));
             return this;

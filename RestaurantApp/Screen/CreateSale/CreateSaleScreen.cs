@@ -8,7 +8,6 @@ namespace RestaurantApp.Screen.CreateSale;
 public class CreateSaleScreen : ObjectBuildingScreen
 {
     protected override string? HeaderMessage => "Создание заявки на продукты";
-    protected override string? CompleteMessage => "Создание заявки на поступление продукта";
 
     private Sale.Builder _builder = new();
     private IRestaurantRepository _restaurantRepository;

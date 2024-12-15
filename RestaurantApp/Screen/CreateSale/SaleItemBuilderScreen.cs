@@ -7,8 +7,7 @@ namespace RestaurantApp.Screen.CreateSale;
 public class SaleItemBuilderScreen(int restaurantId, Action<SaleItem> onComplete, List<SaleItem> items)
     : ObjectBuildingScreen
 {
-    protected override string? HeaderMessage => "Добавление пункта заявки";
-    protected override string? CompleteMessage => "Добавление пункта заявки";
+    protected override string? HeaderMessage => "Добавление пункта продажи";
 
     private readonly SaleItem.Builder _builder = new();
     private IMenuItemRepository _menuItemRepository;
@@ -20,7 +19,7 @@ public class SaleItemBuilderScreen(int restaurantId, Action<SaleItem> onComplete
     [
         new SingleObjectSelectScreenFactory<SavedModel<MenuItem>>("Продукт", FindAllMenuItems, OnMenuItemComplete,
             onFailed: OnProductFailed),
-        new DecimalValueInputScreenFactory("Количество", (value) => _builder.SetQuantity(value)),
+        new IntValueInputScreenFactory("Количество", (value) => _builder.SetQuantity(value)),
         new OptionalDecimalValueInputScreenFactory(() => $"Стоимость. (пусто = {menuItem.Data.Price})", OnTotalPrice),
     ];
 

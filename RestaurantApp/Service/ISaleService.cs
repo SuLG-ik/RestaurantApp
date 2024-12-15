@@ -19,8 +19,9 @@ public class LocalSaleService(
                     item => new ProductDeduction(sale.RestaurantId, sale.Date, item.ProductId, item.Quantity))
                 .ToList();
         var groupedDeductions = productDeductions.GroupBy(item => item.ProductId);
-        if (groupedDeductions.All(grouping =>
-                IsProductsQuantityInRestaurantDeductionAvailable(sale.RestaurantId, grouping.Key, grouping)))
+        var isEnoughProductsToDeduct = groupedDeductions.All(grouping =>
+            IsProductsQuantityInRestaurantDeductionAvailable(sale.RestaurantId, grouping.Key, grouping));
+        if (!isEnoughProductsToDeduct)
         {
             return false;
         }
@@ -37,14 +38,14 @@ public class LocalSaleService(
             additionalDeductions.Sum(item => item.Quantity) >= 0;
     }
 
-    public bool IsSaleItemQuantityAvailable(SaleItem request, List<SaleItem> allItems)
+    public decimal CalculateSalesRevenue(int restaurantId)
     {
-        return true;
+        return saleRepository.FindAllByRestaurantId(restaurantId).Sum(item => item.Data.TotalPrice);
     }
 }
 
 public interface ISaleService
 {
     public bool AddSale(Sale sale);
-    public bool IsSaleItemQuantityAvailable(SaleItem request, List<SaleItem> allItems);
+    public decimal CalculateSalesRevenue(int restaurantId);
 }
