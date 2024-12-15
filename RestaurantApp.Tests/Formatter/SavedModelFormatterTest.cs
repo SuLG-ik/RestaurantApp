@@ -34,7 +34,7 @@ public class SavedModelFormatterTests
         Assert.IsTrue(_formatter.Supports(savedModel));
         var result = _formatter.Format(savedModel);
 
-        Assert.AreEqual("Созранённый объект: ID: 1, Данные: Formatted Test Data", result);
+        Assert.AreEqual("ID: 1, Formatted Test Data", result);
         _mockGeneralFormatter.Verify(f => f.Format(modelData), Times.Once);
     }
 

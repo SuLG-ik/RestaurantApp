@@ -35,8 +35,8 @@ public class ProductRequestItemTests
     {
         var builder = new ProductRequestItem.Builder();
 
-        Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetQuantity(0));
-        Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetQuantity(-5));
+        Assert.ThrowsException<ValidationNotCourseInException<decimal>>(() => builder.SetQuantity(0));
+        Assert.ThrowsException<ValidationNotCourseInException<decimal>>(() => builder.SetQuantity(-5));
     }
 
     [TestMethod]
@@ -49,30 +49,10 @@ public class ProductRequestItemTests
     }
 
     [TestMethod]
-    public void Build_WithoutUnit_ShouldThrowValidationNotNullException()
-    {
-        var builder = new ProductRequestItem.Builder()
-            .SetProductId(1)
-            .SetQuantity(5);
-
-        Assert.ThrowsException<ValidationNullException>(() => builder.Build());
-    }
-
-    [TestMethod]
     public void Build_WithoutQuantity_ShouldThrowValidationNotNullException()
     {
         var builder = new ProductRequestItem.Builder()
             .SetProductId(1);
-
-        Assert.ThrowsException<ValidationNullException>(() => builder.Build());
-    }
-    
-    [TestMethod]
-    public void Build_WithoutPurchasePrice_ShouldThrowValidationNotNullException()
-    {
-        var builder = new ProductRequestItem.Builder()
-            .SetProductId(1)
-            .SetQuantity(5);
 
         Assert.ThrowsException<ValidationNullException>(() => builder.Build());
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using RestaurantApp.Model;
 
@@ -51,7 +52,7 @@ public class ProductTests
     {
         var builder = new Product.Builder();
 
-        Assert.ThrowsException<ValidationNotCourseInException<int>>(() => builder.SetQuantity(-1));
+        Assert.ThrowsException<ValidationNotCourseInException<decimal>>(() => builder.SetQuantity(-1));
     }
 
     [TestMethod]
@@ -95,7 +96,7 @@ public class ProductTests
             .SetQuantity(100)
             .SetSupplierId(1);
 
-        Assert.ThrowsException<ValidationNullException>(() => builder.Build());
+        Assert.ThrowsException<ValidationLengthException<List<PriceChange>>>(() => builder.Build());
     }
 
     [TestMethod]
