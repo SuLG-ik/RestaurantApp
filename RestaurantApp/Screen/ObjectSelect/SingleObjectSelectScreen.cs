@@ -5,8 +5,8 @@ namespace RestaurantApp.Screen.ObjectSelect;
 
 public class SingleObjectSelectScreen<T>(
     string title,
-    IRepository<T> repository,
-    Action<SavedModel<T>> onComplete,
+    Func<IEnumerable<T>> objectsProvider,
+    Action<T> onComplete,
     Action onFailed
 ) : Screen where T : class
 {
@@ -20,7 +20,8 @@ public class SingleObjectSelectScreen<T>(
 
     public override void Display()
     {
-        if (repository.Count() == 0)
+        var objects = objectsProvider.Invoke();
+        if (!objects.Any())
         {
             onFailed();
             Navigator?.Back();
@@ -35,8 +36,8 @@ public class SingleObjectSelectScreen<T>(
     private void UserInput()
     {
         _console.Write("Введите номер объекта: ");
-        var id = _console.ReadIntUntilValid("modelId", onRetry: RetryMessage);
-        OnSelectId(id);
+        var number = _console.ReadIntUntilValid("modelNumber", onRetry: RetryMessage);
+        OnSelectNumber(number);
     }
 
     private void WriteHeader()
@@ -47,24 +48,25 @@ public class SingleObjectSelectScreen<T>(
 
     private void WriteObjects()
     {
-        var objects = repository.FindAll();
-        foreach (var model in objects)
+        var objects = objectsProvider.Invoke().ToList();
+        for (var i = 0; i < objects.Count; i++)
         {
-            _console.Write($"{model.Id}. ");
-            _console.WriteLine(model);
+            _console.Write($"{i + 1}. ");
+            _console.WriteLine(objects[i]);
         }
     }
 
-    private void OnSelectId(int id)
+    private void OnSelectNumber(int number)
     {
-        var selectedObject = repository.Find(id);
-        if (selectedObject == null)
+        var objects = objectsProvider().ToList();
+        if (number - 1 >= objects.Count)
         {
-            _console.WriteLine($"Объект под номером {id} не существует.");
+            _console.WriteLine($"Объект под номером {number} не существует.");
             return;
         }
+        var selectedObject = objects[number - 1];
 
-        _console.WriteLine($"Объект под номером {id} выбран");
+        _console.WriteLine($"Объект под номером {number} выбран");
         onComplete?.Invoke(selectedObject);
         Navigator?.Back();
     }

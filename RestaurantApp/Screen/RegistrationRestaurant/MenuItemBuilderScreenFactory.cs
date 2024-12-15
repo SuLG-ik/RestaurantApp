@@ -3,10 +3,10 @@ using RestaurantApp.Screen.ObjectBuilding;
 
 namespace RestaurantApp.Screen.RegistrationRestaurant;
 
-public class MenuItemBuilderScreenFactory : IParametrizedScreenFactory<Action<MenuItem>>
+public class MenuItemBuilderScreenFactory : IParametrizedScreenFactory<MultipleItemsParams<MenuItem>>
 {
-    public Screen CreateScreen(Action<MenuItem> param)
+    public Screen CreateScreen(MultipleItemsParams<MenuItem> param)
     {
-        return new MenuItemBuilderScreen(param);
+        return new MenuItemBuilderScreen(param.Action);
     }
 }

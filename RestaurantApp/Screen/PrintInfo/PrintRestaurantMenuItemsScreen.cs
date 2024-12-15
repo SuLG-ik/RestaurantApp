@@ -17,8 +17,8 @@ public class PrintRestaurantMenuItemsScreen : ObjectBuildingScreen
 
     protected override IScreenFactory[] ScreenFactories =>
     [
-        new SingleObjectSelectScreenFactory<Restaurant>("Выберите ресторан для вывода меню",
-            _restaurantRepository, onRestaurantSelected, onRestaurantFailed)
+        new SingleObjectSelectScreenFactory<SavedModel<Restaurant>>("Выберите ресторан для вывода меню",
+            _restaurantRepository.FindAll, onRestaurantSelected, onRestaurantFailed)
     ];
 
     private void onRestaurantFailed()

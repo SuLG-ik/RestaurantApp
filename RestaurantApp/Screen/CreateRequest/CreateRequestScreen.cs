@@ -1,6 +1,7 @@
 using RestaurantApp.Model;
 using RestaurantApp.Repository;
 using RestaurantApp.Screen.ObjectBuilding;
+using RestaurantApp.Service;
 
 namespace RestaurantApp.Screen.CreateRequest;
 
@@ -11,11 +12,11 @@ public class CreateRequestScreen : ObjectBuildingScreen
 
     private ProductRequest.Builder _builder = new();
     private IRestaurantRepository _restaurantRepository;
-    private IProductRequestRepository _productRequestRepository;
+    private IProductRequestsService _productRequestsService;
 
     protected override IScreenFactory[] ScreenFactories =>
     [
-        new SingleObjectSelectScreenFactory<Restaurant>("Ресторан", _restaurantRepository,
+        new SingleObjectSelectScreenFactory<SavedModel<Restaurant>>("Ресторан", _restaurantRepository.FindAll,
             (value) => _builder.SetRestaurantId(value.Id),
             onFailed: OnRestaurantFailed),
         new DateTimeValueInputScreenFactory("Дата заявки", (value) => _builder.SetRequestDate(value)),
@@ -38,13 +39,13 @@ public class CreateRequestScreen : ObjectBuildingScreen
     {
         base.Create();
         _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
-        _productRequestRepository = ServiceLocator.GetService<IProductRequestRepository>();
+        _productRequestsService = ServiceLocator.GetService<IProductRequestsService>();
     }
 
     protected override void Complete()
     {
         var productRequest = _builder.Build();
-        _productRequestRepository.Add(productRequest);
+        _productRequestsService.AddProductRequest(productRequest);
     }
 
     public override void Display()

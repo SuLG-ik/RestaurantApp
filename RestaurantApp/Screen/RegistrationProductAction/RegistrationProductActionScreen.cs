@@ -24,7 +24,7 @@ public class RegistrationProductActionScreen : ObjectBuildingScreen
         new DecimalValueInputScreenFactory("Цена", (value) => _builder.SetPrice(value)),
         new EnumValueInputScreenFactory<Unit>("Единица измерения", (value) => _builder.SetUnit(value)),
         new IntValueInputScreenFactory("Количество", (value) => _builder.SetQuantity(value)),
-        new SingleObjectSelectScreenFactory<Supplier>("Поставщик", _supplierRepository, OnSupplierSelected, OnFailed),
+        new SingleObjectSelectScreenFactory<SavedModel<Supplier>>("Поставщик", _supplierRepository.FindAll, OnSupplierSelected, OnFailed),
     ];
 
     private void OnFailed()

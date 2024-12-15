@@ -1,4 +1,6 @@
 using RestaurantApp.Formatter;
+using RestaurantApp.Repository;
+using RestaurantApp.Service;
 
 namespace RestaurantApp;
 
@@ -13,6 +15,9 @@ public class RestaurantApplication(INavigator<Screen.Screen> navigator, IReposit
         ServiceLocator.Register<IFormatter>(formatter);
         ServiceLocator.Register<IConsole>(new SystemConsole(formatter));
         repositories.Initialize();
+        ServiceLocator.Register<IProductRequestsService>(
+            new LocalProductRequestService(ServiceLocator.GetService<IProductRepository>(),
+                ServiceLocator.GetService<IProductRequestRepository>()));
         Navigator = navigator;
     }
 
