@@ -4,7 +4,7 @@ namespace RestaurantApp.Repository;
 
 public abstract class InMemoryBaseRepository<T> : IRepository<T> where T : class
 {
-    private readonly Dictionary<int, T> _storage;
+    protected readonly Dictionary<int, T> _storage;
     private readonly IIdGenerator _idGenerator;
 
     protected InMemoryBaseRepository(List<SavedModel<T>> storage)
@@ -28,10 +28,12 @@ public abstract class InMemoryBaseRepository<T> : IRepository<T> where T : class
     {
         var id = _idGenerator.NextId();
         _storage[id] = data;
-        return new SavedModel<T>.Builder()
-            .SetId(id)
-            .SetData(data)
-            .Build();
+        return new SavedModel<T>(id, data);
+    }
+
+    public IEnumerable<SavedModel<T>> AddAll(IEnumerable<T> data)
+    {
+        return data.Select(Add);
     }
 
 
@@ -39,10 +41,7 @@ public abstract class InMemoryBaseRepository<T> : IRepository<T> where T : class
     {
         if (!_storage.ContainsKey(id)) throw new ArgumentException("Model with id " + id + " is not exists");
         _storage[id] = data;
-        return new SavedModel<T>.Builder()
-            .SetId(id)
-            .SetData(data)
-            .Build();
+        return new SavedModel<T>(id, data);
     }
 
     public bool Remove(int id)
@@ -54,19 +53,19 @@ public abstract class InMemoryBaseRepository<T> : IRepository<T> where T : class
     {
         var exists = _storage.TryGetValue(id, out var data);
         if (!exists || data == null) return null;
-        return new SavedModel<T>.Builder()
-            .SetId(id)
-            .SetData(data)
-            .Build();
+        return new SavedModel<T>(id, data);
     }
 
     public List<SavedModel<T>> FindAll()
     {
-        return _storage.Select(item => new SavedModel<T>.Builder()
-            .SetId(item.Key)
-            .SetData(item.Value)
-            .Build()
-        ).ToList();
+        return _storage.Select(item => new SavedModel<T>(item.Key, item.Value)).ToList();
+    }
+
+    public List<SavedModel<T>> FindAllByIds(IEnumerable<int> ids)
+    {
+        return _storage.Where(item => ids.Contains(item.Key))
+            .Select(item => new SavedModel<T>(item.Key, item.Value))
+            .ToList();
     }
 
     public bool Exists(int id)

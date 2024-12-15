@@ -1,3 +1,4 @@
+using RestaurantApp.Screen.RegistrationMenuItem;
 using RestaurantApp.Screen.RegistrationProductAction;
 using RestaurantApp.Screen.RegistrationRestaurant;
 using RestaurantApp.Screen.RegistrationSupplierAction;
@@ -16,6 +17,7 @@ public class RegistrationActionsScreen : MenuOptionsScreen<RegistrationActionsOp
             { RegistrationActionsOptions.NewProduct, new MenuOption("Добавить продукт", OnProduct) },
             { RegistrationActionsOptions.NewSupplier, new MenuOption("Добавить поставщика", OnSupplier) },
             { RegistrationActionsOptions.NewRestaurant, new MenuOption("Добавить ресторан", OnRestaurant) },
+            { RegistrationActionsOptions.NewMenuItem, new MenuOption("Добавить пункт меню", OnMenuItem) },
             { RegistrationActionsOptions.Back, new MenuOption("Назад", OnBack) }
         };
     }
@@ -23,6 +25,11 @@ public class RegistrationActionsScreen : MenuOptionsScreen<RegistrationActionsOp
     private void OnSupplier()
     {
         Navigator?.NavigateTo(new RegistrationSupplierActionScreen());
+    }
+
+    private void OnMenuItem()
+    {
+        Navigator?.NavigateTo(new RegistrationMenuItemBuilderScreen());
     }
 
     private void OnRestaurant()

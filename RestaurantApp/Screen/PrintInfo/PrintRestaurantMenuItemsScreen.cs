@@ -14,28 +14,35 @@ public class PrintRestaurantMenuItemsScreen : ObjectBuildingScreen
     protected override string? CompleteMessage => null;
 
     private IRestaurantRepository _restaurantRepository;
+    private IRestaurantMenuItemRepository _restaurantMenuItemRepository;
+    private IMenuItemRepository _menuItemRepository;
 
     protected override IScreenFactory[] ScreenFactories =>
     [
         new SingleObjectSelectScreenFactory<SavedModel<Restaurant>>("Выберите ресторан для вывода меню",
-            _restaurantRepository.FindAll, onRestaurantSelected, onRestaurantFailed)
+            _restaurantRepository.FindAll, OnRestaurantSelected, OnRestaurantFailed)
     ];
 
-    private void onRestaurantFailed()
+    private void OnRestaurantFailed()
     {
         _console.WriteLine("Список ресторанов пуст");
     }
 
-    private void onRestaurantSelected(SavedModel<Restaurant> restaurant)
+    private void OnRestaurantSelected(SavedModel<Restaurant> restaurant)
     {
-        if (restaurant.Data.Menu.Count == 0)
+        var restaurantMenuItems = _restaurantMenuItemRepository.FindAllByRestaurantId(restaurant.Id).ToList();
+        if (restaurantMenuItems.Count == 0)
         {
             _console.WriteLine("Меню пустое.");
             return;
         }
-        foreach (var menuItem in restaurant.Data.Menu)
+
+        var restaurantMenuItemsIds = restaurantMenuItems.Select(item => item.Data.MenuItemId);
+        var menuItems = _menuItemRepository.FindAllByIds(restaurantMenuItemsIds);
+
+        foreach (var menuItem in menuItems)
         {
-            _console.WriteLine(menuItem);
+            _console.WriteLine(menuItem.Data);
         }
     }
 
@@ -43,6 +50,8 @@ public class PrintRestaurantMenuItemsScreen : ObjectBuildingScreen
     {
         base.Create();
         _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
+        _restaurantMenuItemRepository = ServiceLocator.GetService<IRestaurantMenuItemRepository>();
+        _menuItemRepository = ServiceLocator.GetService<IMenuItemRepository>();
     }
 
     protected override void Complete()
