@@ -16,6 +16,13 @@ public class LocalRepositories : IRepositories
             new InMemoryRestaurantRepository(GetAll<Restaurant>(KeyRestaurants)));
         ServiceLocator.Register<IProductRequestRepository>(
             new InMemoryProductRequestRepository(GetAll<ProductRequest>(KeyProductRequests)));
+        ServiceLocator.Register<IMenuItemRepository>(
+            new InMemoryMenuItemRepository(GetAll<MenuItem>(KeyMenuItems)));
+        ServiceLocator.Register<IRestaurantMenuItemRepository>(
+            new InMemoryRestaurantMenuItemRepository(GetAll<RestaurantMenuItem>(KeyRestaurantMenuItems)));
+        ServiceLocator.Register<ISaleRepository>(new InMemorySaleRepository(GetAll<Sale>(KeySales)));
+        ServiceLocator.Register<IProductDeductionRepository>(
+            new InMemoryProductDeductionRepository(GetAll<ProductDeduction>(KeyProductDeductions)));
     }
 
     public void Destroy()
@@ -24,6 +31,9 @@ public class LocalRepositories : IRepositories
         SaveAll(ServiceLocator.GetService<IProductRepository>(), KeyProducts);
         SaveAll(ServiceLocator.GetService<IRestaurantRepository>(), KeyRestaurants);
         SaveAll(ServiceLocator.GetService<IProductRequestRepository>(), KeyProductRequests);
+        SaveAll(ServiceLocator.GetService<IMenuItemRepository>(), KeyMenuItems);
+        SaveAll(ServiceLocator.GetService<IRestaurantMenuItemRepository>(), KeyRestaurantMenuItems);
+        SaveAll(ServiceLocator.GetService<ISaleRepository>(), KeySales);
     }
 
     private static List<SavedModel<T>> GetAll<T>(string name) where T : class
@@ -42,4 +52,8 @@ public class LocalRepositories : IRepositories
     private static readonly string KeyProducts = "products";
     private static readonly string KeyRestaurants = "restaurants";
     private static readonly string KeyProductRequests = "productrequests";
+    private static readonly string KeyMenuItems = "menuitems";
+    private static readonly string KeyRestaurantMenuItems = "restaurantmenuitems";
+    private static readonly string KeySales = "sales";
+    private static readonly string KeyProductDeductions = "productdeductions";
 }

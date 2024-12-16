@@ -2,7 +2,7 @@ using RestaurantApp.Formatter;
 
 namespace RestaurantApp;
 
-public class SystemConsole(IFormatter formatter): IConsole
+public class SystemConsole(IFormatter formatter) : IConsole
 {
     public void WriteLine(object value)
     {
@@ -10,6 +10,7 @@ public class SystemConsole(IFormatter formatter): IConsole
         {
             value = formatter.Format(value);
         }
+
         Console.WriteLine(value);
     }
 
@@ -19,6 +20,7 @@ public class SystemConsole(IFormatter formatter): IConsole
         {
             value = formatter.Format(value);
         }
+
         Console.Write(value);
     }
 
@@ -39,9 +41,25 @@ public class SystemConsole(IFormatter formatter): IConsole
         return Validator.RequireDecimal(line, tag);
     }
 
+    public decimal? ReadOptionalDecimal(string tag)
+    {
+        var line = Validator.RequireNotNull(Console.ReadLine(), tag);
+        if (line.Length == 0)
+        {
+            return null;
+        }
+
+        return Validator.RequireDecimal(line, tag);
+    }
+
     public decimal ReadDecimalUntilValid(string tag, Action? onRetry = null)
     {
         return Validator.RunUntilValid(() => ReadDecimal(tag), onRetry);
+    }
+
+    public decimal? ReadOptionalDecimalUntilValid(string tag, Action? onRetry = null)
+    {
+        return Validator.RunUntilValid(() => ReadOptionalDecimal(tag), onRetry);
     }
 
     public T ReadEnum<T>(string? tag) where T : struct, Enum

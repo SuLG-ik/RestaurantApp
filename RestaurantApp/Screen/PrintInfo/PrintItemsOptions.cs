@@ -7,5 +7,6 @@ public enum PrintItemsOptions
     RestaurantMenu = 3,
     Suppliers = 4,
     ProductRequests = 5,
+    Sales = 6,
     Quit = 0,
 }

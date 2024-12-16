@@ -11,6 +11,7 @@ public class MenuItemFormatter(IFormatter generalFormatter) : BaseFormatter<Menu
             .Append("Название: ").Append(value.Name)
             .Append(", группа: ").Append(generalFormatter.Format(value.Group))
             .Append(", цена: ").Append(value.Price)
+            .Append(", ингредиенты: ").Append(generalFormatter.Format(value.Ingredients))
             .ToString();
     }
 }

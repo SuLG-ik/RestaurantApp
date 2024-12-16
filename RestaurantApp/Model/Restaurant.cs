@@ -9,16 +9,14 @@ public class Restaurant
     public string Address { get; }
     public string PhoneNumber { get; }
     public string DirectorFullname { get; }
-    public ImmutableList<MenuItem> Menu { get; }
 
     [JsonConstructor]
-    private Restaurant(string name, string address, string phoneNumber, string directorFullname, ImmutableList<MenuItem> menu)
+    private Restaurant(string name, string address, string phoneNumber, string directorFullname)
     {
         Name = name;
         Address = address;
         PhoneNumber = phoneNumber;
         DirectorFullname = directorFullname;
-        Menu = menu;
     }
 
     public class Builder
@@ -27,7 +25,6 @@ public class Restaurant
         private string? _address;
         private string? _phoneNumber;
         private string? _director;
-        private List<MenuItem> _menu = [];
 
         public Builder SetName(string name)
         {
@@ -52,19 +49,7 @@ public class Restaurant
             _director = Validator.RequireNotBlank(director, nameof(director));
             return this;
         }
-
-        public Builder AddMenuItem(MenuItem menuItem)
-        {
-            _menu.Add(Validator.RequireNotNull(menuItem, nameof(menuItem)));
-            return this;
-        }
-
-        public Builder AddMenuItems(IEnumerable<MenuItem> menuItem)
-        {
-            _menu.AddRange(Validator.RequireNotNull(menuItem, nameof(menuItem)));
-            return this;
-        }
-
+        
         public Restaurant Build()
         {
             var name = Validator.RequireNotNull(_name, nameof(_name));
@@ -72,7 +57,7 @@ public class Restaurant
             var phone = Validator.RequireNotNull(_phoneNumber, nameof(_phoneNumber));
             var director = Validator.RequireNotNull(_director, nameof(_director));
 
-            return new Restaurant(name, address, phone, director, _menu.ToImmutableList());
+            return new Restaurant(name, address, phone, director);
         }
     }
 }

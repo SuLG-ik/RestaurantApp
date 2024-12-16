@@ -6,13 +6,13 @@ namespace RestaurantApp.Screen.ObjectBuilding;
 
 public class SingleObjectSelectScreenFactory<T>(
     string title,
-    IRepository<T> repository,
-    Action<SavedModel<T>> onComplete,
+    Func<IEnumerable<T>> objectsProvider,
+    Action<T> onComplete,
     Action onFailed
 ) : IScreenFactory where T : class
 {
     public Screen CreateScreen()
     {
-        return new SingleObjectSelectScreen<T>(title, repository, onComplete, onFailed);
+        return new SingleObjectSelectScreen<T>(title, objectsProvider, onComplete, onFailed);
     }
 }

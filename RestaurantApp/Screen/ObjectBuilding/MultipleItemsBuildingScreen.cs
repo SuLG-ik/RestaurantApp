@@ -2,7 +2,7 @@ namespace RestaurantApp.Screen.ObjectBuilding;
 
 public class MultipleItemsBuildingScreen<T>(
     string title,
-    IParametrizedScreenFactory<Action<T>> factory,
+    IParametrizedScreenFactory<MultipleItemsParams<T>> factory,
     Action<List<T>> onComplete,
     bool required
 ) : Screen where T : class
@@ -42,7 +42,6 @@ public class MultipleItemsBuildingScreen<T>(
         {
             OnContinue();
         }
-
     }
 
     private void WriteHeader()
@@ -52,7 +51,7 @@ public class MultipleItemsBuildingScreen<T>(
 
     private void OnContinue()
     {
-        var screen = factory.CreateScreen(OnItemAdded);
+        var screen = factory.CreateScreen(new MultipleItemsParams<T>(OnItemAdded, _items));
         Navigator?.NavigateTo(screen);
     }
 
@@ -97,10 +96,5 @@ public class MultipleItemsBuildingScreen<T>(
     private void RetryMessage()
     {
         _console.Write("Введите 0 – не добавлять, 1 – добавить: ");
-    }
-
-    private static string FormatNumber(int number, bool isSelected)
-    {
-        return isSelected ? $"({number})" : $"{number}";
     }
 }
