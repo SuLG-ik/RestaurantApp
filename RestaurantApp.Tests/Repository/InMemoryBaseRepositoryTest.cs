@@ -1,179 +1,195 @@
+using System.Linq;
 using RestaurantApp.Model;
 using RestaurantApp.Repository;
-
-namespace RestaurantApp.Tests.Repository;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-[TestClass]
-public class InMemoryBaseRepositoryTests
+namespace RestaurantApp.Tests
 {
-    private class TestRepository : InMemoryBaseRepository<string>
+    [TestClass]
+    public class InMemoryBaseRepositoryTests
     {
-        public TestRepository(List<SavedModel<string>> storage) : base(storage) { }
-        public TestRepository() : base() { }
-    }
-
-    private TestRepository _repository;
-
-    [TestInitialize]
-    public void SetUp()
-    {
-        _repository = new TestRepository();
-    }
-
-    [TestMethod]
-    public void Add_ShouldAddItemToRepository()
-    {
-        // Arrange
-        var data = "Test Data";
-
-        // Act
-        var savedModel = _repository.Add(data);
-
-        // Assert
-        Assert.IsTrue(_repository.Exists(savedModel.Id));
-        Assert.AreEqual(data, savedModel.Data);
-    }
-
-    [TestMethod]
-    public void Update_ShouldUpdateExistingItemInRepository()
-    {
-        // Arrange
-        var data = "Initial Data";
-        var updatedData = "Updated Data";
-        var savedModel = _repository.Add(data);
-
-        // Act
-        var updatedModel = _repository.Update(savedModel.Id, updatedData);
-        var foundedModel = _repository.Find(savedModel.Id);
-        
-        // Assert
-        Assert.IsTrue(_repository.Exists(savedModel.Id));
-        Assert.AreEqual(updatedData, updatedModel.Data);
-        Assert.IsNotNull(foundedModel);
-        Assert.AreEqual(updatedData, foundedModel.Data);
-    }
-
-    [TestMethod]
-    public void Update_NonExistingItem_ShouldThrowArgumentException()
-    {
-        // Arrange
-        var nonExistentId = 999;
-        var data = "New Data";
-
-        // Act & Assert
-        Assert.ThrowsException<ArgumentException>(() => _repository.Update(nonExistentId, data));
-    }
-
-    [TestMethod]
-    public void Remove_ShouldRemoveItemFromRepository()
-    {
-        // Arrange
-        var data = "Test Data";
-        var savedModel = _repository.Add(data);
-
-        // Act
-        var removed = _repository.Remove(savedModel.Id);
-
-        // Assert
-        Assert.IsTrue(removed);
-        Assert.IsFalse(_repository.Exists(savedModel.Id));
-    }
-
-    [TestMethod]
-    public void Remove_NonExistingItem_ShouldReturnFalse()
-    {
-        // Arrange
-        var nonExistentId = 999;
-
-        // Act
-        var removed = _repository.Remove(nonExistentId);
-
-        // Assert
-        Assert.IsFalse(removed);
-    }
-
-    [TestMethod]
-    public void Exists_ShouldReturnTrueForExistingItem()
-    {
-        // Arrange
-        var data = "Test Data";
-        var savedModel = _repository.Add(data);
-
-        // Act
-        var exists = _repository.Exists(savedModel.Id);
-
-        // Assert
-        Assert.IsTrue(exists);
-    }
-
-    [TestMethod]
-    public void Exists_ShouldReturnFalseForNonExistingItem()
-    {
-        // Act
-        var exists = _repository.Exists(999); // Non-existent ID
-
-        // Assert
-        Assert.IsFalse(exists);
-    }
-
-    [TestMethod]
-    public void Find_ShouldReturnItemIfExists()
-    {
-        // Arrange
-        var data = "Test Data";
-        var savedModel = _repository.Add(data);
-
-        // Act
-        var foundModel = _repository.Find(savedModel.Id);
-
-        // Assert
-        Assert.IsNotNull(foundModel);
-        Assert.AreEqual(savedModel.Id, foundModel.Id);
-        Assert.AreEqual(savedModel.Data, foundModel.Data);
-    }
-
-    [TestMethod]
-    public void Find_ShouldReturnNullIfItemDoesNotExist()
-    {
-        // Act
-        var foundModel = _repository.Find(999); // Non-existent ID
-
-        // Assert
-        Assert.IsNull(foundModel);
-    }
-
-    [TestMethod]
-    public void Constructor_WithStorage_ShouldInitializeWithGivenData()
-    {
-        // Arrange
-        var initialData = new List<SavedModel<string>>
+        private class TestModel
         {
-            new SavedModel<string>.Builder().SetId(1).SetData("Data 1").Build(),
-            new SavedModel<string>.Builder().SetId(2).SetData("Data 2").Build()
-        };
-        var repositoryWithStorage = new TestRepository(initialData);
+            public string Name { get; set; } = string.Empty;
+        }
 
-        // Act & Assert
-        Assert.IsTrue(repositoryWithStorage.Exists(1));
-        Assert.IsTrue(repositoryWithStorage.Exists(2));
-    }
+        private InMemoryBaseRepository<TestModel> CreateRepository(IEnumerable<SavedModel<TestModel>>? initialStorage = null)
+        {
+            return new TestRepository<TestModel>(initialStorage ?? new List<SavedModel<TestModel>>());
+        }
 
-    [TestMethod]
-    public void Add_ShouldGenerateUniqueIds()
-    {
-        // Arrange
-        var data1 = "Data 1";
-        var data2 = "Data 2";
+        [TestMethod]
+        public void Constructor_WithEmptyStorage_ShouldInitializeCorrectly()
+        {
+            var repository = CreateRepository();
 
-        // Act
-        var savedModel1 = _repository.Add(data1);
-        var savedModel2 = _repository.Add(data2);
+            Assert.AreEqual(0, repository.FindAll().Count);
+        }
 
-        // Assert
-        Assert.AreNotEqual(savedModel1.Id, savedModel2.Id);
+        [TestMethod]
+        public void Constructor_WithExistingStorage_ShouldInitializeCorrectly()
+        {
+            var initialStorage = new List<SavedModel<TestModel>>
+            {
+                new SavedModel<TestModel>(1, new TestModel { Name = "Test1" }),
+                new SavedModel<TestModel>(2, new TestModel { Name = "Test2" })
+            };
+
+            var repository = CreateRepository(initialStorage);
+
+            var allItems = repository.FindAll();
+            Assert.AreEqual(2, allItems.Count);
+            Assert.IsTrue(allItems.Exists(x => x.Id == 1 && x.Data.Name == "Test1"));
+            Assert.IsTrue(allItems.Exists(x => x.Id == 2 && x.Data.Name == "Test2"));
+        }
+
+        [TestMethod]
+        public void Add_ShouldAddNewItemWithGeneratedId()
+        {
+            var repository = CreateRepository();
+
+            var item = new TestModel { Name = "New Item" };
+            var savedModel = repository.Add(item);
+
+            Assert.AreEqual(1, savedModel.Id);
+            Assert.AreEqual(item, savedModel.Data);
+            Assert.IsTrue(repository.Exists(savedModel.Id));
+        }
+
+        [TestMethod]
+        public void AddAll_ShouldAddMultipleItems()
+        {
+            var repository = CreateRepository();
+
+            var items = new List<TestModel>
+            {
+                new TestModel { Name = "Item1" },
+                new TestModel { Name = "Item2" }
+            };
+
+            var savedModels = repository.AddAll(items);
+
+            Assert.AreEqual(2, savedModels.Count());
+            Assert.IsTrue(savedModels.Any(x => x.Data.Name == "Item1"));
+            Assert.IsTrue(savedModels.Any(x => x.Data.Name == "Item2"));
+        }
+
+        [TestMethod]
+        public void Update_ShouldModifyExistingItem()
+        {
+            var repository = CreateRepository();
+            var initialItem = repository.Add(new TestModel { Name = "Initial" });
+
+            var updatedItem = new TestModel { Name = "Updated" };
+            var result = repository.Update(initialItem.Id, updatedItem);
+
+            Assert.AreEqual(initialItem.Id, result.Id);
+            Assert.AreEqual(updatedItem.Name, result.Data.Name);
+        }
+
+        [TestMethod]
+        public void Update_WithNonExistentId_ShouldThrowException()
+        {
+            var repository = CreateRepository();
+
+            Assert.ThrowsException<ArgumentException>(() => repository.Update(999, new TestModel { Name = "Invalid" }));
+        }
+
+        [TestMethod]
+        public void Remove_ShouldRemoveExistingItem()
+        {
+            var repository = CreateRepository();
+            var item = repository.Add(new TestModel { Name = "Test Item" });
+
+            var result = repository.Remove(item.Id);
+
+            Assert.IsTrue(result);
+            Assert.IsFalse(repository.Exists(item.Id));
+        }
+
+        [TestMethod]
+        public void Remove_WithNonExistentId_ShouldReturnFalse()
+        {
+            var repository = CreateRepository();
+
+            var result = repository.Remove(999);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Find_ShouldReturnSavedModelIfExists()
+        {
+            var repository = CreateRepository();
+            var item = repository.Add(new TestModel { Name = "Test Item" });
+
+            var result = repository.Find(item.Id);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(item.Id, result.Id);
+            Assert.AreEqual(item.Data, result.Data);
+        }
+
+        [TestMethod]
+        public void Find_ShouldReturnNullIfNotExists()
+        {
+            var repository = CreateRepository();
+
+            var result = repository.Find(999);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void FindAll_ShouldReturnAllItems()
+        {
+            var repository = CreateRepository(new List<SavedModel<TestModel>>
+            {
+                new SavedModel<TestModel>(1, new TestModel { Name = "Item1" }),
+                new SavedModel<TestModel>(2, new TestModel { Name = "Item2" })
+            });
+
+            var allItems = repository.FindAll();
+            Assert.AreEqual(2, allItems.Count);
+        }
+
+        [TestMethod]
+        public void Exists_ShouldReturnTrueForExistingId()
+        {
+            var repository = CreateRepository();
+            var item = repository.Add(new TestModel { Name = "Test Item" });
+
+            Assert.IsTrue(repository.Exists(item.Id));
+        }
+
+        [TestMethod]
+        public void Exists_ShouldReturnFalseForNonExistentId()
+        {
+            var repository = CreateRepository();
+
+            Assert.IsFalse(repository.Exists(999));
+        }
+
+        [TestMethod]
+        public void Count_ShouldReturnCorrectItemCount()
+        {
+            var repository = CreateRepository(new List<SavedModel<TestModel>>
+            {
+                new SavedModel<TestModel>(1, new TestModel { Name = "Item1" }),
+                new SavedModel<TestModel>(2, new TestModel { Name = "Item2" })
+            });
+
+            Assert.AreEqual(2, repository.Count());
+        }
+
+        // Private concrete implementation for testing since the repository is abstract
+        private class TestRepository<T> : InMemoryBaseRepository<T> where T : class
+        {
+            public TestRepository(IEnumerable<SavedModel<T>> storage) : base(storage)
+            {
+            }
+        }
     }
 }
