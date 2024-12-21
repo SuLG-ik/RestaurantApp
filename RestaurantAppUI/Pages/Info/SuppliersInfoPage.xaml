@@ -1,0 +1,59 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantAppUI.Pages.Info.SuppliersInfoPage"
+             Title="Поставщики">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid Padding="10" BackgroundColor="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Id" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Наименование" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Адресс" FontAttributes="Bold" />
+                    <Label Grid.Column="3" Text="Директор" FontAttributes="Bold" />
+                    <Label Grid.Column="4" Text="Номер телефона" FontAttributes="Bold" />
+                    <Label Grid.Column="5" Text="Банк" FontAttributes="Bold" />
+                    <Label Grid.Column="6" Text="Номер счета" FontAttributes="Bold" />
+                    <Label Grid.Column="7" Text="ИНН" FontAttributes="Bold" />
+                </Grid>
+
+                <!-- Suppliers CollectionView -->
+                <CollectionView x:Name="SuppliersCollectionView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Id}" />
+                                <Label Grid.Column="1" Text="{Binding Data.Name}" />
+                                <Label Grid.Column="2" Text="{Binding Data.Address}" />
+                                <Label Grid.Column="3" Text="{Binding Data.Director}" />
+                                <Label Grid.Column="4" Text="{Binding Data.PhoneNumber}" />
+                                <Label Grid.Column="5" Text="{Binding Data.Bank}" />
+                                <Label Grid.Column="6" Text="{Binding Data.AccountNumber}" />
+                                <Label Grid.Column="7" Text="{Binding Data.Inn}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

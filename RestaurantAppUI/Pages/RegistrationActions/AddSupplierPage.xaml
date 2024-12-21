@@ -1,0 +1,33 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantAppUI.Pages.RegistrationActions.AddSupplierPage"
+             Title="Добавить поставщика продуктов">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Наименование" FontAttributes="Bold"/>
+            <Entry x:Name="NameEntry" Placeholder="Введите наименование"/>
+
+            <Label Text="Адрес" FontAttributes="Bold"/>
+            <Entry x:Name="AddressEntry" Placeholder="Введите адрес"/>
+
+            <Label Text="Директор" FontAttributes="Bold"/>
+            <Entry x:Name="DirectorEntry" Placeholder="Введите имя директора"/>
+
+            <Label Text="Номер телефона" FontAttributes="Bold"/>
+            <Entry x:Name="PhoneNumberEntry" Placeholder="Введите номер телефона" Keyboard="Telephone"/>
+
+            <Label Text="Банк" FontAttributes="Bold"/>
+            <Entry x:Name="BankEntry" Placeholder="Введите банк"/>
+
+            <Label Text="Лицевой счет" FontAttributes="Bold"/>
+            <Entry x:Name="AccountNumberEntry" Placeholder="Введите лицевой счет"/>
+
+            <Label Text="ИНН" FontAttributes="Bold"/>
+            <Entry x:Name="IinEntry" Placeholder="Введите ИНН"/>
+
+            <Button Text="Сохранить" Clicked="OnSaveButtonClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

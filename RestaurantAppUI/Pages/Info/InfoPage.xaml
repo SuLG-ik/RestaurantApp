@@ -1,0 +1,36 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="RestaurantAppUI.Pages.Info.InfoPage"
+    Title="Регистрационные действия">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Выберите данные для отображения"
+               FontAttributes="Bold"
+               FontSize="20"
+               HorizontalOptions="Center"
+               Margin="0,10,0,20" />
+
+        <Button Text="Поставщики"
+                Clicked="OnSuppliersClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center" />
+
+        <Button Text="Продукты"
+                Clicked="OnProductsClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center" />
+        
+        <Button Text="Пункты меню"
+                Clicked="OnMenuItemsClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center" />
+
+        <Button Text="Рестораны"
+                Clicked="OnRestaurantsClicked"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,52 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:RestaurantAppUI.Converters"
+             x:Class="RestaurantAppUI.Pages.Info.ProductsInfoPage"
+             Title="Продукты">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid Padding="10" BackgroundColor="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Наименование" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Единица измерения" FontAttributes="Bold" />
+                    <Label Grid.Column="3" Text="Количество на складе" FontAttributes="Bold" />
+                    <Label Grid.Column="4" Text="Стоимость" FontAttributes="Bold" />
+                    <Label Grid.Column="5" Text="ID Поставщика" FontAttributes="Bold" />
+                </Grid>
+                <CollectionView x:Name="ProductsCollectionView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding  Id}" />
+                                <Label Grid.Column="1" Text="{Binding  Data.Name}" />
+                                <Label Grid.Column="2"
+                                       Text="{Binding Data.Unit, Converter={converters:FormatterValueConverter}}" />
+                                <Label Grid.Column="3" Text="{Binding Data.Quantity}" />
+                                <Label Grid.Column="4" Text="{Binding Data.Price}" />
+                                <Label Grid.Column="5"
+                                       Text="{Binding Data.SupplierId, Converter={converters:SupplierIdConverter}}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
