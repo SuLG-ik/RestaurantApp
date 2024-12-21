@@ -26,4 +26,9 @@ public partial class InfoPage : ContentPage
     {
         await Navigation.PushAsync(new MenuItemsInfoPage());
     }
+
+    private async void OnProductRequestsClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ProductRequestsInfoPage());
+    }
 }
