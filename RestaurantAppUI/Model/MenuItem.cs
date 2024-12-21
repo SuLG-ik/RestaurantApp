@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace RestaurantAppUI.Model;
 
-public class MenuItem
+public class MenuItem: INameable
 {
     public string Name { get; }
     public MenuItemGroup Group { get; }

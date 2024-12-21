@@ -4,9 +4,9 @@ using RestaurantAppUI.Repository;
 
 namespace RestaurantAppUI.Converters;
 
-public class SupplierIdConverter : IValueConverter
+public class ProductIdConverter: IValueConverter
 {
-    private readonly ISupplierRepository _supplierRepository = ServiceLocator.GetService<ISupplierRepository>();
+    private readonly IProductRepository _supplierRepository = ServiceLocator.GetService<IProductRepository>();
     private readonly IFormatter _formatter = ServiceLocator.GetService<IFormatter>();
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

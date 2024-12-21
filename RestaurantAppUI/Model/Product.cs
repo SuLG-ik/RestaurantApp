@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace RestaurantAppUI.Model;
 
-public class Product
+public class Product: INameable
 {
     public string Name { get; }
     public Unit Unit { get; }

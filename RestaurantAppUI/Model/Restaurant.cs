@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace RestaurantAppUI.Model;
 
-public class Restaurant
+public class Restaurant: INameable
 {
     public string Name { get; }
     public string Address { get; }

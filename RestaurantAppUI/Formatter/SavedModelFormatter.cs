@@ -8,7 +8,7 @@ public class SavedModelFormatter(IFormatter generalFormatter) : IFormatter
     {
         ArgumentNullException.ThrowIfNull(value);
         var model = (ISavedModel<object>)value;
-        return $"ID: {model.Id}, {generalFormatter.Format(model.Data)}";
+        return $"{generalFormatter.Format(model.Data)} ({model.Id})";
     }
 
     public bool Supports(object value)

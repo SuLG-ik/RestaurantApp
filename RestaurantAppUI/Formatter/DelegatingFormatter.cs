@@ -35,15 +35,12 @@ public class DelegatingFormatter : IFormatter
         var formatter = new DelegatingFormatter(
             [
                 parent => new SavedModelFormatter(parent),
-                parent => new MenuItemFormatter(parent),
                 parent => new EnumerableFormatter(parent),
-                parent => new ProductFormatter(parent),
-                _ => new RestaurantFormatter(),
+                _ => new NameableFormatter(),
                 parent => new ProductRequestFormatter(parent),
                 parent => new ProductEditingFormatter(parent),
                 parent => new IngredientFormatter(parent),
                 _ => new ProductRequestItemFormatter(),
-                _ => new SupplierFormatter(),
                 _ => new ProductGroupFormatter(),
                 _ => new UnitFormatter(),
                 _ => new DateTimeFormatter(),
