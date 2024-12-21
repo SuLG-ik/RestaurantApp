@@ -1,6 +1,6 @@
 using RestaurantAppUI.Domain.Model;
 
-namespace RestaurantAppUI.Formatter;
+namespace RestaurantAppUI.Presentation.Formatter;
 
 public class SavedModelFormatter(IFormatter generalFormatter) : IFormatter
 {

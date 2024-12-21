@@ -2,7 +2,7 @@
 using RestaurantAppUI.Data.Service;
 using RestaurantAppUI.Domain.Repository;
 using RestaurantAppUI.Domain.Service;
-using RestaurantAppUI.Formatter;
+using RestaurantAppUI.Presentation.Formatter;
 
 namespace RestaurantAppUI;
 

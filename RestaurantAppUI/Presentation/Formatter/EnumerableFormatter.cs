@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace RestaurantAppUI.Formatter;
+namespace RestaurantAppUI.Presentation.Formatter;
 
 public class EnumerableFormatter(IFormatter parent) : BaseFormatter<IEnumerable>
 {

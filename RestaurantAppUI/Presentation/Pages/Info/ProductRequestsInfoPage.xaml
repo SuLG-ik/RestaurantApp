@@ -1,6 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:RestaurantAppUI.Converters"
+             xmlns:converters1="clr-namespace:RestaurantAppUI.Presentation.Converters"
              x:Class="RestaurantAppUI.Presentation.Pages.Info.ProductRequestsInfoPage"
              Title="Product Requests">
     <ContentPage.Content>
@@ -32,9 +32,9 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Id}" />
-                                <Label Grid.Column="1" Text="{Binding Data.RestaurantId, Converter={converters:RestaurantIdConverter}}" />
+                                <Label Grid.Column="1" Text="{Binding Data.RestaurantId, Converter={converters1:RestaurantIdConverter}}" />
                                 <Label Grid.Column="2"
-                                       Text="{Binding Data.RequestDate, Converter={converters:FormatterValueConverter}}" />
+                                       Text="{Binding Data.RequestDate, Converter={converters1:FormatterValueConverter}}" />
                                 <Label Grid.Column="3" Text="{Binding Data.ProductRequestItems.Count}" />
                                 <Button Grid.Column="4" Text="Подробнее" Clicked="OnMoreInfoClicked" />
                             </Grid>

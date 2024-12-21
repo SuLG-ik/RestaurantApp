@@ -1,8 +1,8 @@
 using System.Globalization;
 using RestaurantAppUI.Domain.Repository;
-using RestaurantAppUI.Formatter;
+using RestaurantAppUI.Presentation.Formatter;
 
-namespace RestaurantAppUI.Converters;
+namespace RestaurantAppUI.Presentation.Converters;
 
 public class ProductIdConverter: IValueConverter
 {

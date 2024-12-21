@@ -1,12 +1,12 @@
 using System.Globalization;
-using RestaurantAppUI.Domain.Repository;
-using RestaurantAppUI.Formatter;
+using RestaurantAppUI.Data.Repository;
+using RestaurantAppUI.Presentation.Formatter;
 
-namespace RestaurantAppUI.Converters;
+namespace RestaurantAppUI.Presentation.Converters;
 
-public class SupplierIdConverter : IValueConverter
+public class MenuItemIdConverter : IValueConverter
 {
-    private readonly ISupplierRepository _supplierRepository = ServiceLocator.GetService<ISupplierRepository>();
+    private readonly IMenuItemRepository _supplierRepository = ServiceLocator.GetService<IMenuItemRepository>();
     private readonly IFormatter _formatter = ServiceLocator.GetService<IFormatter>();
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

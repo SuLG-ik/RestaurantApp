@@ -1,6 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:RestaurantAppUI.Converters"
+             xmlns:converters1="clr-namespace:RestaurantAppUI.Presentation.Converters"
              x:Class="RestaurantAppUI.Presentation.Pages.Info.MenuItemsInfoPage"
              Title="Меню">
     <ContentPage.Content>
@@ -34,8 +34,9 @@
                                 <Label Grid.Column="0" Text="{Binding Id}" />
                                 <Label Grid.Column="1" Text="{Binding Data.Name}" />
                                 <Label Grid.Column="2"
-                                       Text="{Binding Data.Group, Converter={converters:FormatterValueConverter}}" />
+                                       Text="{Binding Data.Group, Converter={converters1:FormatterValueConverter}}" />
                                 <Label Grid.Column="3" Text="{Binding Data.Price}" />
+                                <Button Grid.Column="3" Text="Подробнее" Clicked="OnMoreInfoClicked" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

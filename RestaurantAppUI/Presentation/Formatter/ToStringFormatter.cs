@@ -1,4 +1,4 @@
-namespace RestaurantAppUI.Formatter;
+namespace RestaurantAppUI.Presentation.Formatter;
 
 public class ToStringFormatter : IFormatter
 {

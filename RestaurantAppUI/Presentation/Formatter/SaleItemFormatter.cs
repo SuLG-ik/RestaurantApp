@@ -2,7 +2,7 @@ using System.Text;
 using RestaurantAppUI.Data.Repository;
 using RestaurantAppUI.Domain.Model;
 
-namespace RestaurantAppUI.Formatter;
+namespace RestaurantAppUI.Presentation.Formatter;
 
 public class SaleItemFormatter : BaseFormatter<SaleItem>
 {

@@ -1,7 +1,7 @@
 using System.Globalization;
-using RestaurantAppUI.Formatter;
+using RestaurantAppUI.Presentation.Formatter;
 
-namespace RestaurantAppUI.Converters;
+namespace RestaurantAppUI.Presentation.Converters;
 
 public class FormatterValueConverter : IValueConverter
 {

@@ -2,7 +2,7 @@ using System.Text;
 using RestaurantAppUI.Domain.Model;
 using RestaurantAppUI.Domain.Repository;
 
-namespace RestaurantAppUI.Formatter;
+namespace RestaurantAppUI.Presentation.Formatter;
 
 public class IngredientFormatter(IFormatter formatter) : BaseFormatter<Ingredient>
 {
