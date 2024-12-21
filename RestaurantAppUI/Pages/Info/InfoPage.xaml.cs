@@ -31,4 +31,9 @@ public partial class InfoPage : ContentPage
     {
         await Navigation.PushAsync(new ProductRequestsInfoPage());
     }
+
+    private async void OnSalesClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new SalesInfoPage());
+    }
 }

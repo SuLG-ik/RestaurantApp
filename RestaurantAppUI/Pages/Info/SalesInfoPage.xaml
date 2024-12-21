@@ -1,0 +1,46 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:RestaurantAppUI.Converters"
+             x:Class="RestaurantAppUI.Pages.Info.SalesInfoPage"
+             Title="Sales">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Grid Padding="10" BackgroundColor="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Id" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Ресторан" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Дата" FontAttributes="Bold" />
+                    <Label Grid.Column="3" Text="Полная стоимость" FontAttributes="Bold" />
+                    <Label Grid.Column="4" Text="" FontAttributes="Bold" />
+                </Grid>
+                <CollectionView x:Name="SalesCollectionView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Id}" />
+                                <Label Grid.Column="1" Text="{Binding Data.RestaurantId, Converter={converters:RestaurantIdConverter}}" />
+                                <Label Grid.Column="2" Text="{Binding Data.Date, Converter={converters:FormatterValueConverter}}" />
+                                <Label Grid.Column="3" Text="{Binding Data.TotalPrice}" />
+                                <Button Grid.Column="4" Text="Подробнее" Clicked="OnMoreInfoClicked" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
