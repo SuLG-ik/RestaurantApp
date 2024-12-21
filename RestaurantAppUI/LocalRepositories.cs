@@ -1,7 +1,8 @@
-using RestaurantAppUI.Model;
-using RestaurantAppUI.Repository;
-using RestaurantAppUI.Storage;
-using MenuItem = RestaurantAppUI.Model.MenuItem;
+using RestaurantAppUI.Data.Repository;
+using RestaurantAppUI.Data.Storage;
+using RestaurantAppUI.Domain.Model;
+using RestaurantAppUI.Domain.Repository;
+using MenuItem = RestaurantAppUI.Domain.Model.MenuItem;
 
 namespace RestaurantAppUI;
 

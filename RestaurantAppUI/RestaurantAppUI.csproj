@@ -71,6 +71,9 @@
       <MauiXaml Update="Pages\Info\InfoPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="Presentation\Pages\MainPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -82,6 +85,26 @@
         <DependentUpon>RegistrationActionsPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Presentation\Pages\MainPage.xaml.cs">
+        <DependentUpon>MainPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Presentation\Pages\Info\InfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\MenuItemDetailsPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\MenuItemsInfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\ProductInfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\ProductRequestDetailsPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\ProductRequestsInfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\RestaurantsInfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\SaleDetailsPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\SalesInfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\Info\SuppliersInfoPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\MainPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\RegistrationActions\AddSupplierPage.xaml" />
+      <AdditionalFiles Include="Presentation\Pages\RegistrationActions\RegistrationActionsPage.xaml" />
     </ItemGroup>
 
 </Project>

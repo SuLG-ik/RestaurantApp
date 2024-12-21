@@ -1,0 +1,23 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantAppUI.Presentation.Pages.MainPage"
+             Title="Главный экран">
+    <VerticalStackLayout Padding="20" Spacing="10">
+        
+        <Button Text="Добавить продажу"
+                Clicked="OnAddSaleClicked" />
+
+        <Button Text="Добавить запрос на продукты"
+                Clicked="OnAddProductsRequestClicked" />
+
+        <Button Text="Регистрационные действия"
+                Clicked="OnRegistrationActionsClicked" />
+
+        <Button Text="Показать информацию"
+                Clicked="OnShowInfoClicked" />
+
+        <Button Text="Аналитика"
+                Clicked="OnAnalyticsClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>

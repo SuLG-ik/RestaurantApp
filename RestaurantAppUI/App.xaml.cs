@@ -1,6 +1,8 @@
-﻿using RestaurantAppUI.Formatter;
-using RestaurantAppUI.Repository;
-using RestaurantAppUI.Service;
+﻿using RestaurantAppUI.Data.Repository;
+using RestaurantAppUI.Data.Service;
+using RestaurantAppUI.Domain.Repository;
+using RestaurantAppUI.Domain.Service;
+using RestaurantAppUI.Formatter;
 
 namespace RestaurantAppUI;
 

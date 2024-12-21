@@ -1,6 +1,6 @@
 using System.Globalization;
+using RestaurantAppUI.Domain.Repository;
 using RestaurantAppUI.Formatter;
-using RestaurantAppUI.Repository;
 
 namespace RestaurantAppUI.Converters;
 

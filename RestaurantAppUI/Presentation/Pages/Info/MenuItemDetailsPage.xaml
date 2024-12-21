@@ -1,0 +1,15 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantAppUI.Presentation.Pages.Info.MenuItemDetailsPage"
+             Title="Menu Item Details">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label x:Name="NameLabel" FontAttributes="Bold" FontSize="20" />
+            <Label x:Name="GroupLabel" FontSize="18" />
+            <Label x:Name="PriceLabel" FontSize="18" />
+            <Label Text="Ингредиенты:" FontAttributes="Bold" FontSize="18" />
+            <Label x:Name="IngredientsLabel" FontSize="16" />
+            <Button Text="Закрыть" Clicked="OnCloseButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
