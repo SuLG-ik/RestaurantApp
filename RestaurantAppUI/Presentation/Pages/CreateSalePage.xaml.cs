@@ -14,8 +14,8 @@ public partial class CreateSalePage : ContentPage
     private readonly IRestaurantRepository _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
     private readonly IMenuItemRepository _menuItemRepository = ServiceLocator.GetService<IMenuItemRepository>();
     private readonly ISaleService _saleService = ServiceLocator.GetService<ISaleService>();
-    private readonly IProductsService _productsService = ServiceLocator.GetService<IProductsService>();
     private readonly IFormatter _formatter = ServiceLocator.GetService<IFormatter>();
+    private readonly IMenuService _menuService = ServiceLocator.GetService<IMenuService>();
 
     public List<SavedModel<Restaurant>> Restaurants { get; }
     public List<SavedModel<MenuItem>> MenuItems { get; }
@@ -24,7 +24,6 @@ public partial class CreateSalePage : ContentPage
     public CreateSalePage()
     {
         Restaurants = _restaurantRepository.FindAll();
-        MenuItems = _menuItemRepository.FindAll();
         InitializeComponent();
         SaleTimePicker.Time = DateTime.Now.TimeOfDay;
         BindingContext = this;
@@ -60,6 +59,24 @@ public partial class CreateSalePage : ContentPage
         if (index == -1) return;
         var menuItem = MenuItems[index];
         PriceEntry.Text = $"{menuItem.Data.Price}";
+    }
+
+    private void OnRestaurantSelected(object sender, EventArgs e)
+    {
+        var picker = RestaurantPicker;
+        var index = picker.SelectedIndex;
+        if (index == -1) return;
+        var restaurant = Restaurants[index];
+        UpdateRestaurant(restaurant);
+    }
+
+    private void UpdateRestaurant(SavedModel<Restaurant> restaurant)
+    {
+        SaleItems.Clear();
+        UpdateSaleItems();
+        var menuItems = _menuService.FindMenuItemsByRestaurantId(restaurant.Id);
+        MenuItemPicker.ItemsSource = menuItems.ToList();
+        MenuItemPicker.SelectedIndex = -1;
     }
 
     private async void OnSaveSaleClicked(object sender, EventArgs e)

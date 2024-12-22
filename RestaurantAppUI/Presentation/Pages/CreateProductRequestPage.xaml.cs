@@ -12,15 +12,15 @@ public partial class CreateProductRequestPage : ContentPage
     private readonly IRestaurantRepository _restaurantRepository = ServiceLocator.GetService<IRestaurantRepository>();
     private readonly IProductRepository _productRepository = ServiceLocator.GetService<IProductRepository>();
     private readonly IProductsService _productsService = ServiceLocator.GetService<IProductsService>();
+    private readonly IMenuService _menuService = ServiceLocator.GetService<IMenuService>();
     private readonly IFormatter _formatter = ServiceLocator.GetService<IFormatter>();
+    private List<SavedModel<Product>> _products = [];
     public List<SavedModel<Restaurant>> Restaurants { get; }
-    public List<SavedModel<Product>> Products { get; }
     public ObservableCollection<ProductRequestItem> ProductRequestItems { get; } = new();
 
     public CreateProductRequestPage()
     {
         Restaurants = _restaurantRepository.FindAll();
-        Products = _productRepository.FindAll();
         InitializeComponent();
         RequestTimePicker.Time = DateTime.Now.TimeOfDay;
         BindingContext = this;
@@ -36,7 +36,7 @@ public partial class CreateProductRequestPage : ContentPage
     {
         if (ProductPicker.SelectedIndex >= 0 && decimal.TryParse(QuantityEntry.Text, out var quantity))
         {
-            var selectedProduct = Products[ProductPicker.SelectedIndex];
+            var selectedProduct = _products[ProductPicker.SelectedIndex];
             var productRequestItem = new ProductRequestItem.Builder()
                 .SetProductId(selectedProduct.Id)
                 .SetQuantity(quantity)
@@ -82,5 +82,16 @@ public partial class CreateProductRequestPage : ContentPage
         {
             await DisplayAlert("Ошибка", "Все поля должны быть заполнены перед сохранением.", "Ок");
         }
+    }
+
+    private void OnRestaurantSelect(object? sender, EventArgs e)
+    {
+        var index = RestaurantPicker.SelectedIndex;
+        if (index == -1) return;
+        var restaurant = Restaurants[index];
+        _products = _menuService.FindRequiredProductsByRestaurantId(restaurant.Id).ToList();
+        ProductRequestItems.Clear();
+        ProductPicker.ItemsSource = _products;
+        UpdateProductRequestItems();
     }
 }

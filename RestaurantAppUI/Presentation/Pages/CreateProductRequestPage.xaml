@@ -9,6 +9,7 @@
             <Label Text="Ресторан" FontAttributes="Bold" />
             <Picker x:Name="RestaurantPicker"
                     ItemsSource="{Binding Restaurants}"
+                    SelectedIndexChanged="OnRestaurantSelect"
                     ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" />
 
             <Label Text="Дата запроса" FontAttributes="Bold" />

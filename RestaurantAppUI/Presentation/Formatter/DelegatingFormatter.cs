@@ -40,7 +40,7 @@ public class DelegatingFormatter : IFormatter
                 parent => new ProductRequestFormatter(parent),
                 parent => new ProductEditingFormatter(parent),
                 parent => new IngredientFormatter(parent),
-                _ => new ProductRequestItemFormatter(),
+                parent => new ProductRequestItemFormatter(parent),
                 _ => new ProductGroupFormatter(),
                 _ => new UnitFormatter(),
                 _ => new DateTimeFormatter(),

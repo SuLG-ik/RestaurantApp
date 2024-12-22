@@ -9,7 +9,8 @@
             <Label Text="Ресторан" FontAttributes="Bold" />
             <Picker x:Name="RestaurantPicker"
                     ItemsSource="{Binding Restaurants}"
-                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" />
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" 
+                    SelectedIndexChanged="OnRestaurantSelected"/>
 
             <Label Text="Дата продажи" FontAttributes="Bold" />
             <DatePicker x:Name="SaleDatePicker" />
@@ -17,10 +18,9 @@
 
             <Label Text="Пункты продажи" FontAttributes="Bold" />
             <Label x:Name="SaleItemsLabel" />
-<Picker x:Name="MenuItemPicker"
-        ItemsSource="{Binding MenuItems}"
-        ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}"
-        SelectedIndexChanged="OnMenuItemSelected"/>
+            <Picker x:Name="MenuItemPicker"
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}"
+                    SelectedIndexChanged="OnMenuItemSelected" />
             <Entry x:Name="QuantityEntry" Placeholder="Введите количество" Keyboard="Numeric" />
             <Entry x:Name="PriceEntry" Placeholder="Цена" Keyboard="Numeric" />
             <Button Text="Добавить пункт продажи" Clicked="OnAddSaleItemClicked" />

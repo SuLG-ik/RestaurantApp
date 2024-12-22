@@ -2,6 +2,7 @@ using RestaurantAppUI.Data.Repository;
 using RestaurantAppUI.Domain.Model;
 using RestaurantAppUI.Domain.Repository;
 using RestaurantAppUI.Domain.Service;
+using MenuItem = RestaurantAppUI.Domain.Model.MenuItem;
 
 namespace RestaurantAppUI.Data.Service;
 

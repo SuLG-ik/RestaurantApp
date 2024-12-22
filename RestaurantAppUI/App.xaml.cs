@@ -31,8 +31,10 @@ public partial class App : Application
             new LocalProductService(
                 ServiceLocator.GetService<IProductRepository>(),
                 ServiceLocator.GetService<IProductRequestRepository>(),
-                ServiceLocator.GetService<IProductDeductionRepository>())
-        );
+                ServiceLocator.GetService<IProductDeductionRepository>(),
+                ServiceLocator.GetService<IRestaurantMenuItemRepository>(),
+                ServiceLocator.GetService<IMenuItemRepository>()
+            ));
         ServiceLocator.Register<ISaleService>(
             new LocalSaleService(
                 ServiceLocator.GetService<ISaleRepository>(),
@@ -40,6 +42,12 @@ public partial class App : Application
                 ServiceLocator.GetService<IMenuItemRepository>(),
                 ServiceLocator.GetService<IProductsService>())
         );
+        ServiceLocator.Register<IMenuService>(
+            new LocalMenuService(
+                ServiceLocator.GetService<IRestaurantMenuItemRepository>(),
+                ServiceLocator.GetService<IMenuItemRepository>(),
+                ServiceLocator.GetService<IProductRepository>()
+            ));
     }
 
     private void Destroy()

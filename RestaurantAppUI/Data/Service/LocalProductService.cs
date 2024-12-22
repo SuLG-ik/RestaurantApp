@@ -1,3 +1,4 @@
+using RestaurantAppUI.Data.Repository;
 using RestaurantAppUI.Domain;
 using RestaurantAppUI.Domain.Model;
 using RestaurantAppUI.Domain.Repository;
@@ -8,7 +9,9 @@ namespace RestaurantAppUI.Data.Service;
 public class LocalProductService(
     IProductRepository productRepository,
     IProductRequestRepository productRequestRepository,
-    IProductDeductionRepository productDeductionRepository
+    IProductDeductionRepository productDeductionRepository,
+    IRestaurantMenuItemRepository restaurantMenuItemRepository,
+    IMenuItemRepository menuItemRepository
 ) : IProductsService
 {
     public decimal CalculateProductsQuantityInRestaurant(int restaurantId, int productId)
@@ -66,7 +69,8 @@ public class LocalProductService(
         return item.Quantity <= quantity;
     }
 
-    public decimal CalculateProductRequestItemQuantityAvailable(int productId, IEnumerable<ProductRequestItem> requestItems)
+    public decimal CalculateProductRequestItemQuantityAvailable(int productId,
+        IEnumerable<ProductRequestItem> requestItems)
     {
         var product = productRepository.Find(productId);
         if (product == null)
@@ -76,6 +80,17 @@ public class LocalProductService(
 
         return product.Data.Quantity - requestItems.Where(i => i.ProductId == product.Id)
             .Sum(i => i.Quantity);
+    }
+
+    public IEnumerable<SavedModel<Product>> FindRequiredInMenuProducts(int restaurantId)
+    {
+        var menuItemIds = restaurantMenuItemRepository.FindAllByRestaurantId(restaurantId)
+            .Select(item => item.Data.MenuItemId);
+        var menuItems = menuItemRepository.FindAllByIds(menuItemIds);
+        var requiredProductIds = menuItems.SelectMany(item => item.Data.Ingredients)
+            .Select(item => item.ProductId)
+            .Distinct().ToList();
+        return productRepository.FindAllByIds(requiredProductIds);
     }
 
     private ProductEditing ApplyProductEditing(SavedModel<Product> product, IEnumerable<ProductRequestItem> items)
