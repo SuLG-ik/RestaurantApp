@@ -15,7 +15,7 @@ public class SaleItemFormatter : BaseFormatter<SaleItem>
     {
         var menuItem = Domain.Validator.RequireNotNull(MenuItemRepository.Find(value.MenuItemId));
         return new StringBuilder()
-            .Append($"Пункт меню: {menuItem.Data.Name} (ID: {menuItem.Id})")
+            .Append($"Пункт продажи: {menuItem.Data.Name} (ID: {menuItem.Id})")
             .Append(", количество: ")
             .Append(value.Quantity)
             .Append(", стоимость: ")

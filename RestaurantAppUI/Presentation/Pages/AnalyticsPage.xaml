@@ -1,0 +1,52 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:RestaurantAppUI.Presentation.Converters"
+             x:Class="RestaurantAppUI.Presentation.Pages.AnalyticsPage"
+             Title="Аналитика">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Ресторан" FontAttributes="Bold" />
+            <Picker x:Name="RestaurantPicker"
+                    ItemsSource="{Binding Restaurants}"
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}"
+                    SelectedIndexChanged="OnRestaurantSelected" />
+
+            <Label x:Name="RevenueLabel" />
+
+            <Label Text="Продукты в наличии" FontAttributes="Bold" />
+            <StackLayout>
+                <Grid Padding="10" BackgroundColor="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Id" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Наименование" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Используется в меню" />
+                    <Label Grid.Column="3" Text="Количество" />
+                </Grid>
+                <CollectionView x:Name="ProductsCollectionView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Product.Id}" />
+                                <Label Grid.Column="1" Text="{Binding Product.Data.Name}" />
+                                <CheckBox Grid.Column="2" IsChecked="{Binding IsNecessary}" IsEnabled="False" Opacity="1" />
+                                <Label Grid.Column="3" Text="{Binding Quantity}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -12,6 +12,7 @@ public partial class MainPage : ContentPage
 
     private async void OnAddSaleClicked(object sender, EventArgs e)
     {
+        await Navigation.PushAsync(new CreateSalePage());
     }
 
     private async void OnAddProductsRequestClicked(object sender, EventArgs e)
@@ -31,5 +32,6 @@ public partial class MainPage : ContentPage
 
     private async void OnAnalyticsClicked(object sender, EventArgs e)
     {
+        await Navigation.PushAsync(new AnalyticsPage());
     }
 }

@@ -53,7 +53,8 @@ public partial class CreateProductRequestPage : ContentPage
                 var availableQuantity =
                     _productsService.CalculateProductRequestItemQuantityAvailable(selectedProduct.Id,
                         ProductRequestItems);
-                DisplayAlert("Ошибка", $"Недостаточное количество продукта. Доступное количество: {availableQuantity}", "Ок");
+                DisplayAlert("Ошибка", $"Недостаточное количество продукта. Доступное количество: {availableQuantity}",
+                    "Ок");
             }
         }
     }
@@ -66,7 +67,8 @@ public partial class CreateProductRequestPage : ContentPage
         [
             ValidatedForm.Picker(RestaurantPicker, index => builder.SetRestaurantId(Restaurants[index].Id)),
             ValidatedForm.Runnable(() => builder.SetRequestDate(RequestDatePicker.Date + RequestTimePicker.Time)),
-            ValidatedForm.Runnable(() => builder.SetProductRequestItems(ProductRequestItems)),
+            ValidatedForm.Runnable(() => builder.SetProductRequestItems(ProductRequestItems),
+                _ => DisplayAlert("Ошибка", "Нет элементов для добавления к заявке", "Ок")),
         ]);
         if (form.Validate())
         {
