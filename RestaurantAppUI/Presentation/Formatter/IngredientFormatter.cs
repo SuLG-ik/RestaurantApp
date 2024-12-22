@@ -1,6 +1,8 @@
 using System.Text;
-using RestaurantAppUI.Domain.Model;
-using RestaurantAppUI.Domain.Repository;
+using RestaurantApp;
+using RestaurantApp.Domain;
+using RestaurantApp.Domain.Model;
+using RestaurantApp.Domain.Repository;
 
 namespace RestaurantAppUI.Presentation.Formatter;
 
@@ -15,7 +17,7 @@ public class IngredientFormatter(IFormatter formatter) : BaseFormatter<Ingredien
 
     protected override string Format(Ingredient value)
     {
-        var product = Domain.Validator.RequireNotNull(ProductRepository.Find(value.ProductId));
+        var product = Validator.RequireNotNull(ProductRepository.Find(value.ProductId));
         return new StringBuilder()
             .Append("Продукт: ").Append(product.Data.Name)
             .Append(", количество: ").Append(value.Quantity)

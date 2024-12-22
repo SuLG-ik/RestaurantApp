@@ -1,11 +1,12 @@
 using System.Collections.ObjectModel;
-using RestaurantAppUI.Data.Repository;
-using RestaurantAppUI.Domain.Model;
-using RestaurantAppUI.Domain.Repository;
-using RestaurantAppUI.Domain.Service;
+using RestaurantApp;
+using RestaurantApp.Data.Repository;
+using RestaurantApp.Domain.Model;
+using RestaurantApp.Domain.Repository;
+using RestaurantApp.Domain.Service;
 using RestaurantAppUI.Presentation.Formatter;
 using RestaurantAppUI.Presentation.Utils;
-using MenuItem = RestaurantAppUI.Domain.Model.MenuItem;
+using MenuItem = RestaurantApp.Domain.Model.MenuItem;
 
 namespace RestaurantAppUI.Presentation.Pages;
 

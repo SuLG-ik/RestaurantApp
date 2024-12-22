@@ -1,4 +1,5 @@
-using RestaurantAppUI.Domain.Model;
+using RestaurantApp;
+using RestaurantApp.Domain.Model;
 using RestaurantAppUI.Presentation.Formatter;
 
 namespace RestaurantAppUI.Presentation.Pages.Info;

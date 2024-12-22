@@ -1,7 +1,8 @@
-using RestaurantAppUI.Domain.Model;
-using RestaurantAppUI.Domain.Repository;
 using RestaurantAppUI.Presentation.Utils;
 using System.Collections.ObjectModel;
+using RestaurantApp;
+using RestaurantApp.Domain.Model;
+using RestaurantApp.Domain.Repository;
 
 namespace RestaurantAppUI.Presentation.Pages.RegistrationActions;
 

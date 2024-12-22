@@ -1,6 +1,7 @@
-using RestaurantAppUI.Domain.Model;
-using RestaurantAppUI.Domain.Repository;
-using RestaurantAppUI.Domain.Service;
+using RestaurantApp;
+using RestaurantApp.Domain.Model;
+using RestaurantApp.Domain.Repository;
+using RestaurantApp.Domain.Service;
 
 namespace RestaurantAppUI.Presentation.Pages;
 

@@ -1,6 +1,7 @@
-using RestaurantAppUI.Data.Repository;
-using RestaurantAppUI.Domain.Model;
-using MenuItem = RestaurantAppUI.Domain.Model.MenuItem;
+using RestaurantApp;
+using RestaurantApp.Data.Repository;
+using RestaurantApp.Domain.Model;
+using MenuItem = RestaurantApp.Domain.Model.MenuItem;
 
 namespace RestaurantAppUI.Presentation.Pages.Info;
 

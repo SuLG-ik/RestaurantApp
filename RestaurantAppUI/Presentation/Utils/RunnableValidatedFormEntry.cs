@@ -1,4 +1,4 @@
-using RestaurantAppUI.Domain;
+using RestaurantApp.Domain;
 
 namespace RestaurantAppUI.Presentation.Utils;
 

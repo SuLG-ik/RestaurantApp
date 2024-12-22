@@ -1,4 +1,4 @@
-using RestaurantAppUI.Domain;
+using RestaurantApp.Domain;
 
 namespace RestaurantAppUI.Presentation.Utils;
 
@@ -34,7 +34,7 @@ public class ValidatedForm
         Action<decimal> setter,
         Action<ValidationException>? onError = null)
     {
-        return new InputViewValidatedFormEntry<decimal>(input, Domain.Validator.RequireDecimal, setter, onError);
+        return new InputViewValidatedFormEntry<decimal>(input, Validator.RequireDecimal, setter, onError);
     }
 
     public static IValidatedFormEntry Int(
@@ -42,7 +42,7 @@ public class ValidatedForm
         Action<int> setter,
         Action<ValidationException>? onError = null)
     {
-        return new InputViewValidatedFormEntry<int>(input, Domain.Validator.RequireInt, setter, onError);
+        return new InputViewValidatedFormEntry<int>(input, Validator.RequireInt, setter, onError);
     }
 
     public static IValidatedFormEntry Picker(

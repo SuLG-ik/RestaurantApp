@@ -1,6 +1,8 @@
 using System.Text;
-using RestaurantAppUI.Domain.Model;
-using RestaurantAppUI.Domain.Repository;
+using RestaurantApp;
+using RestaurantApp.Domain;
+using RestaurantApp.Domain.Model;
+using RestaurantApp.Domain.Repository;
 
 namespace RestaurantAppUI.Presentation.Formatter;
 
@@ -13,7 +15,7 @@ public class SaleFormatter(IFormatter parent) : BaseFormatter<Sale>
 
     protected override string Format(Sale value)
     {
-        var restaurant = Domain.Validator.RequireNotNull(RestaurantRepository.Find(value.RestaurantId));
+        var restaurant = Validator.RequireNotNull(RestaurantRepository.Find(value.RestaurantId));
         return new StringBuilder()
             .Append("Продажа: ")
             .Append("дата продажи: ").Append(parent.Format(value.Date))

@@ -1,4 +1,4 @@
-using RestaurantAppUI.Domain.Storage;
+using RestaurantApp.Domain.Storage;
 
 namespace RestaurantAppUI.Data.Storage;
 

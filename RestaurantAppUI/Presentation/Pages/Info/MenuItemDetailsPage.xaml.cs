@@ -1,6 +1,7 @@
-using RestaurantAppUI.Domain.Model;
+using RestaurantApp;
+using RestaurantApp.Domain.Model;
 using RestaurantAppUI.Presentation.Formatter;
-using MenuItem = RestaurantAppUI.Domain.Model.MenuItem;
+using MenuItem = RestaurantApp.Domain.Model.MenuItem;
 
 namespace RestaurantAppUI.Presentation.Pages.Info;
 

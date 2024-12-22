@@ -1,5 +1,6 @@
 using System.Globalization;
-using RestaurantAppUI.Domain.Repository;
+using RestaurantApp;
+using RestaurantApp.Domain.Repository;
 using RestaurantAppUI.Presentation.Formatter;
 
 namespace RestaurantAppUI.Presentation.Converters;

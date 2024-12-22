@@ -1,14 +1,16 @@
-﻿using RestaurantAppUI.Data.Repository;
-using RestaurantAppUI.Data.Service;
-using RestaurantAppUI.Domain.Repository;
-using RestaurantAppUI.Domain.Service;
+﻿using RestaurantApp;
+using RestaurantApp.Data.Repository;
+using RestaurantApp.Data.Service;
+using RestaurantApp.Domain.Repository;
+using RestaurantApp.Domain.Service;
+using RestaurantAppUI.Data.Storage;
 using RestaurantAppUI.Presentation.Formatter;
 
 namespace RestaurantAppUI;
 
 public partial class App : Application
 {
-    private readonly IRepositories _repositories = new LocalRepositories();
+    private readonly IRepositories _repositories = new LocalRepositories(new MauiStorageFactory());
 
     public App()
     {

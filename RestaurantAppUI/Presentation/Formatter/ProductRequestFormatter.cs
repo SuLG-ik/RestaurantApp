@@ -1,5 +1,5 @@
 using System.Text;
-using RestaurantAppUI.Domain.Model;
+using RestaurantApp.Domain.Model;
 
 namespace RestaurantAppUI.Presentation.Formatter;
 
