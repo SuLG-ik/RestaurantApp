@@ -22,7 +22,7 @@ public class ProductRequest
     {
         private int? _restaurantId;
         private DateTime? _requestDate;
-        private readonly List<ProductRequestItem> _productRequestItems = [];
+        private List<ProductRequestItem> _productRequestItems = [];
 
         public Builder SetRestaurantId(int restaurant)
         {
@@ -41,6 +41,13 @@ public class ProductRequest
             _productRequestItems.Add(Validator.RequireNotNull(item));
             return this;
         }
+
+        public Builder SetProductRequestItems(IEnumerable<ProductRequestItem> items)
+        {
+            _productRequestItems = Validator.RequireNotEmpty(items).ToList();
+            return this;
+        }
+
         public Builder AddProductRequestItems(IEnumerable<ProductRequestItem> item)
         {
             _productRequestItems.AddRange(Validator.RequireNotNull(item));

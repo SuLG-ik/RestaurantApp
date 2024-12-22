@@ -16,6 +16,7 @@ public partial class MainPage : ContentPage
 
     private async void OnAddProductsRequestClicked(object sender, EventArgs e)
     {
+        await Navigation.PushAsync(new CreateProductRequestPage());
     }
 
     private async void OnRegistrationActionsClicked(object sender, EventArgs e)

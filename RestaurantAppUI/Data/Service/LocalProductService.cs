@@ -54,20 +54,19 @@ public class LocalProductService(
                 .Build()).ToList();
     }
 
-    public List<ProductEditing> GetProductEditing(List<ProductRequestItem> items)
+    public IEnumerable<ProductEditing> GetProductEditing(IEnumerable<ProductRequestItem> items)
     {
         return productRepository.FindAll()
-            .Select(p => ApplyProductEditing(p, items))
-            .ToList();
+            .Select(p => ApplyProductEditing(p, items));
     }
 
-    public bool IsProductRequestItemQuantityAvailable(ProductRequestItem item, List<ProductRequestItem> allItems)
+    public bool IsProductRequestItemQuantityAvailable(ProductRequestItem item, IEnumerable<ProductRequestItem> allItems)
     {
-        var quantity = CalculateAvailableQuantity(item.ProductId, allItems);
+        var quantity = CalculateProductRequestItemQuantityAvailable(item.ProductId, allItems);
         return item.Quantity <= quantity;
     }
 
-    private decimal CalculateAvailableQuantity(int productId, List<ProductRequestItem> requestItems)
+    public decimal CalculateProductRequestItemQuantityAvailable(int productId, IEnumerable<ProductRequestItem> requestItems)
     {
         var product = productRepository.Find(productId);
         if (product == null)
@@ -79,7 +78,7 @@ public class LocalProductService(
             .Sum(i => i.Quantity);
     }
 
-    private ProductEditing ApplyProductEditing(SavedModel<Product> product, List<ProductRequestItem> items)
+    private ProductEditing ApplyProductEditing(SavedModel<Product> product, IEnumerable<ProductRequestItem> items)
     {
         var requestQuantity = items.Where(i => i.ProductId == product.Id).Sum(i => i.Quantity);
 
