@@ -23,5 +23,6 @@ public partial class RegistrationActionsPage : ContentPage
 
     private async void OnAddMenuItemClicked(object sender, EventArgs e)
     {
+        await Navigation.PushAsync(new AddMenuItemPage());  
     }
 }

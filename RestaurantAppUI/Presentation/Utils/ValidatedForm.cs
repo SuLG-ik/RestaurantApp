@@ -2,16 +2,23 @@ using RestaurantAppUI.Domain;
 
 namespace RestaurantAppUI.Presentation.Utils;
 
-public interface IValidatedFormEntry
+public class ValidatedForm
 {
-    public bool Validate();
-}
+    private IList<IValidatedFormEntry> _entries;
 
-public class ValidatedForm(IEnumerable<IValidatedFormEntry> entries)
-{
+    public ValidatedForm(IEnumerable<IValidatedFormEntry> entries)
+    {
+        _entries = entries.ToList();
+    }
+
+    public void AddEntry(IValidatedFormEntry entry)
+    {
+        _entries.Add(entry);
+    }
+
     public bool Validate()
     {
-        return entries.Aggregate(true, (current, entry) => entry.Validate() && current);
+        return _entries.Aggregate(true, (current, entry) => entry.Validate() && current);
     }
 
     public static IValidatedFormEntry String(
@@ -45,5 +52,11 @@ public class ValidatedForm(IEnumerable<IValidatedFormEntry> entries)
     {
         return new PickerValidatedFormEntry(input, (value) => Validator.RequireGreaterOrEqualsThan(value, 0), setter,
             onError);
+    }
+
+    public static IValidatedFormEntry Runnable(Action action,
+        Action<ValidationException>? onError = null)
+    {
+        return new RunnableValidatedFormEntry(action, onError);
     }
 }

@@ -13,25 +13,21 @@
                HorizontalOptions="Center" 
                Margin="0,10,0,20"/>
 
-        <!-- Button to navigate to Add Supplier page -->
         <Button Text="Добавить поставщика" 
                 Clicked="OnAddSupplierClicked"
                 HorizontalOptions="Fill" 
                 VerticalOptions="Center"/>
         
-        <!-- Button to navigate to Add Product page -->
         <Button Text="Добавить продукт" 
                 Clicked="OnAddProductClicked"
                 HorizontalOptions="Fill" 
                 VerticalOptions="Center"/>
 
-        <!-- Button to navigate to Add Menu Item page -->
         <Button Text="Добавить пункт меню" 
                 Clicked="OnAddMenuItemClicked"
                 HorizontalOptions="Fill" 
                 VerticalOptions="Center"/>
 
-        <!-- Button to navigate to Add Restaurant page -->
         <Button Text="Добавить ресторан" 
                 Clicked="OnAddRestaurantClicked"
                 HorizontalOptions="Fill" 

@@ -55,7 +55,7 @@ public class MenuItem: INameable
 
         public Builder SetIngredients(IEnumerable<Ingredient> ingredients)
         {
-            _ingredients = Validator.RequireNotNull(ingredients).ToList();
+            _ingredients = Validator.RequireNotEmpty(ingredients).ToList();
             return this;
         }
 

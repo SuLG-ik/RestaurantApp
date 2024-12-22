@@ -1,0 +1,31 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:RestaurantAppUI.Presentation.Converters"
+             x:Class="RestaurantAppUI.Presentation.Pages.RegistrationActions.AddMenuItemPage"
+             Title="Добавить пункт меню">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Наименование" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry" Placeholder="Введите наименование пункта меню" />
+
+            <Label Text="Группа" FontAttributes="Bold" />
+            <Picker x:Name="GroupPicker"
+                    ItemsSource="{Binding Groups}"
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" />
+
+            <Label Text="Стоимость" FontAttributes="Bold" />
+            <Entry x:Name="PriceEntry" Placeholder="Введите стоимость" Keyboard="Numeric" />
+
+            <Label Text="Ингредиенты:" FontAttributes="Bold" />
+            <Label x:Name="IngredientsLabel" />
+            <Picker x:Name="IngredientPicker"
+                    ItemsSource="{Binding Products}"
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" />
+            <Entry x:Name="IngredientQuantityEntry" Placeholder="Введите количество" Keyboard="Numeric" />
+            <Button Text="Добавить ингредиент" Clicked="OnAddIngredientClicked" />
+
+            <Button Text="Сохранить" Clicked="OnSaveButtonClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
