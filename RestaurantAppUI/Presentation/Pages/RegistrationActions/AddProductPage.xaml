@@ -1,0 +1,32 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:RestaurantAppUI.Presentation.Converters"
+             x:Class="RestaurantAppUI.Presentation.Pages.RegistrationActions.AddProductPage"
+             Title="Добавить продукт">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Наименование" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry" Placeholder="Введите наименование продукта" />
+
+            <Label Text="Единица измерения" FontAttributes="Bold" />
+            <Picker x:Name="UnitPicker"
+                    ItemsSource="{Binding Units}"
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" />
+
+            <Label Text="Количество" FontAttributes="Bold" />
+            <Entry x:Name="QuantityEntry" Placeholder="Введите количество" Keyboard="Numeric" />
+
+            <Label Text="Стоимость" FontAttributes="Bold" />
+            <Entry x:Name="PriceEntry" Placeholder="Введите стоимость" Keyboard="Numeric" />
+
+            <Label Text="Поставщик" FontAttributes="Bold" />
+            <Picker x:Name="SupplierPicker"
+                    ItemsSource="{Binding Suppliers}"
+                    ItemDisplayBinding="{Binding ., Converter={converters:FormatterValueConverter}}" />
+
+            <Button Text="Сохранить" Clicked="OnSaveButtonClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

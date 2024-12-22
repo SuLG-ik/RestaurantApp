@@ -9,6 +9,7 @@ public partial class RegistrationActionsPage : ContentPage
 
     private async void OnAddProductClicked(object sender, EventArgs e)
     {
+        await Navigation.PushAsync(new AddProductPage());
     }
 
     private async void OnAddSupplierClicked(object sender, EventArgs e)

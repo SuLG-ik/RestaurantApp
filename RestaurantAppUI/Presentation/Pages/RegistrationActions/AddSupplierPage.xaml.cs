@@ -1,4 +1,5 @@
 using RestaurantAppUI.Domain.Model;
+using RestaurantAppUI.Domain.Repository;
 using RestaurantAppUI.Presentation.Utils;
 
 namespace RestaurantAppUI.Presentation.Pages.RegistrationActions;
@@ -25,6 +26,8 @@ public partial class AddSupplierPage : ContentPage
         if (form.Validate())
         {
             var model = builder.Build();
+            var supplierRepository = ServiceLocator.GetService<ISupplierRepository>();
+            supplierRepository.Add(model);
             await DisplayAlert("Успех", $"Информация о поставщике {model.Name} была сохранена.", "Ок");
             await Navigation.PopAsync();
         }

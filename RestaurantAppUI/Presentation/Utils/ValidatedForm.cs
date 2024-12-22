@@ -2,74 +2,48 @@ using RestaurantAppUI.Domain;
 
 namespace RestaurantAppUI.Presentation.Utils;
 
-public interface IValidatedFormEntry<out T>
+public interface IValidatedFormEntry
 {
     public bool Validate();
 }
 
-public class ValidatedFormEntry<T>(
-    InputView input,
-    Func<string, T> validator,
-    Action<T> setter,
-    Action<ValidationException>? onError) : IValidatedFormEntry<T>
-{
-    public bool Validate()
-    {
-        try
-        {
-            var value = validator.Invoke(input.Text);
-            setter.Invoke(value);
-            if (onError == null)
-            {
-                input.BackgroundColor = Colors.Transparent;
-            }
-
-            return true;
-        }
-        catch (ValidationException ex)
-        {
-            if (onError == null)
-            {
-                input.BackgroundColor = Colors.Red;
-            }
-            else
-            {
-                onError(ex);
-            }
-
-            return false;
-        }
-    }
-};
-
-public class ValidatedForm(IEnumerable<IValidatedFormEntry<object>> entries)
+public class ValidatedForm(IEnumerable<IValidatedFormEntry> entries)
 {
     public bool Validate()
     {
         return entries.Aggregate(true, (current, entry) => entry.Validate() && current);
     }
 
-    public static IValidatedFormEntry<string> String(
+    public static IValidatedFormEntry String(
         InputView input,
         Action<string> setter,
         Action<ValidationException>? onError = null)
     {
-        return new ValidatedFormEntry<string>(input, (value) => value, setter, onError);
+        return new InputViewValidatedFormEntry<string>(input, (value) => value, setter, onError);
     }
 
-    public static IValidatedFormEntry<decimal> Decimal(
+    public static IValidatedFormEntry Decimal(
         InputView input,
         Action<decimal> setter,
         Action<ValidationException>? onError = null)
     {
-        return new ValidatedFormEntry<decimal>(input, Domain.Validator.RequireDecimal, setter, onError);
+        return new InputViewValidatedFormEntry<decimal>(input, Domain.Validator.RequireDecimal, setter, onError);
     }
 
-    public static IValidatedFormEntry<int> Int(
+    public static IValidatedFormEntry Int(
         InputView input,
         Action<int> setter,
         Action<ValidationException>? onError = null)
     {
-        return new ValidatedFormEntry<int>(input, Domain.Validator.RequireInt, setter, onError);
+        return new InputViewValidatedFormEntry<int>(input, Domain.Validator.RequireInt, setter, onError);
+    }
+
+    public static IValidatedFormEntry Picker(
+        Picker input,
+        Action<int> setter,
+        Action<ValidationException>? onError = null)
+    {
+        return new PickerValidatedFormEntry(input, (value) => Validator.RequireGreaterOrEqualsThan(value, 0), setter,
+            onError);
     }
 }
