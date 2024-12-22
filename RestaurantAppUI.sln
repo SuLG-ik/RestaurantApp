@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAppUI", "Restaura
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantApp", "RestaurantApp\RestaurantApp.csproj", "{5005EFB5-17F5-4F33-8CAC-6FA923BEB417}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantApp.Tests", "RestaurantApp.Tests\RestaurantApp.Tests.csproj", "{315E3447-F8B3-4026-9229-270A750BFC58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{5005EFB5-17F5-4F33-8CAC-6FA923BEB417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5005EFB5-17F5-4F33-8CAC-6FA923BEB417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5005EFB5-17F5-4F33-8CAC-6FA923BEB417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{315E3447-F8B3-4026-9229-270A750BFC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{315E3447-F8B3-4026-9229-270A750BFC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{315E3447-F8B3-4026-9229-270A750BFC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{315E3447-F8B3-4026-9229-270A750BFC58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
